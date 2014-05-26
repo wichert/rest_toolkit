@@ -1,0 +1,11 @@
+*.pyc
+.*.sw[po]
+/build
+/dist
+
+/src/rest_toolkit.egg-info
+
+/.Python
+/bin
+/include
+/lib
