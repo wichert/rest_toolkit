@@ -46,3 +46,27 @@ def test_request_override_renderer():
     r = app.get('/')
     assert r.content_type == 'text/plain'
     assert r.body == 'hello'
+
+
+def test_add_controller():
+    config = Configurator()
+    config.scan('controller')
+    app = make_app(config)
+    app.post('/engage')
+
+
+def test_controller_default_to_json_renderer():
+    config = Configurator()
+    config.scan('controller')
+    app = make_app(config)
+    r = app.post('/engage')
+    assert r.content_type == 'application/json'
+    assert r.json == {'message': 'Ai ai captain'}
+
+
+@pytest.mark.parametrize('method', ['delete', 'get', 'put'])
+def test_controller_invalid_method(method):
+    config = Configurator()
+    config.scan('controller')
+    app = make_app(config)
+    getattr(app, method)('/', status=405)
