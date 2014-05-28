@@ -7,7 +7,7 @@ def make_app(config):
     return TestApp(config.make_wsgi_app())
 
 
-@pytest.mark.parametrize('method', ['delete', 'get', 'post', 'put'])
+@pytest.mark.parametrize('method', ['delete', 'get', 'post', 'patch', 'put'])
 def test_unallowed_method_added(method):
     config = Configurator()
     config.scan('resource_only')
@@ -64,7 +64,7 @@ def test_controller_default_to_json_renderer():
     assert r.json == {'message': 'Ai ai captain'}
 
 
-@pytest.mark.parametrize('method', ['delete', 'get', 'put'])
+@pytest.mark.parametrize('method', ['delete', 'get', 'patch', 'put'])
 def test_controller_invalid_method(method):
     config = Configurator()
     config.scan('controller')

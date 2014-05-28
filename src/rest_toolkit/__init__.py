@@ -4,7 +4,7 @@ from .views import unsupported_method_view
 from .views import default_options_view
 
 
-METHODS = ['DELETE', 'GET', 'OPTIONS', 'POST', 'PUT']
+METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
 
 
 class BaseDecorator(object):
