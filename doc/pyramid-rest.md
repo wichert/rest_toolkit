@@ -27,11 +27,12 @@ def show_root(root, request):
     return {'status': 'OK'}
 
 
-config = Configurator()
-config.scan()
-app = config.make_wsgi_app()
-server = make_server('0.0.0.0', 8080, app)
-server.serve_forever()
+if __name__ == '__main__'
+    config = Configurator()
+    config.scan()
+    app = config.make_wsgi_app()
+    server = make_server('0.0.0.0', 8080, app)
+    server.serve_forever()
 ```
 
 The previous example is simple, but real REST services are likely to be
@@ -77,11 +78,12 @@ def show_user(user, request):
     return {'id': user.id, 'fullname': user.fullname}
 
 
-config = Configurator()
-config.scan()
-app = config.make_wsgi_app()
-server = make_server('0.0.0.0', 8080, app)
-server.serve_forever()
+if __name__ == '__main__'
+    config = Configurator()
+    config.scan()
+    app = config.make_wsgi_app()
+    server = make_server('0.0.0.0', 8080, app)
+    server.serve_forever()
 ```
 
 This example creates two resources: a `/users` collection which will
@@ -115,21 +117,12 @@ return different data, use a different ACL, etc.
 
 * your data model does not need to be aware of frontend-specific things like
   access control lists or JSON formatting.
+
 * you can easily present the same data in multiple ways.
 
 
-
-Three types of resources:
-
-1. Element: a single entity, for example a user.
-2. Collection: a collection of entities, for example the list of all known users.
-3. Controller: a resource which only performs some action. Typically a controller
-   only response to a `POST` request.
-
-
-
 Defining a resource
--------------------
+===================
 
 ```python
 from pyramid_rest import Resource
@@ -200,7 +193,7 @@ resource will be created, and its `reboot` method will be called.
 
 
 Authorization
---------------
+=============
 
 A resource acts as request context within Pyramid, so you can use Pyramid's
 authorization framework directly. Just define a `__acl__` attribute or method
@@ -240,8 +233,11 @@ Design notes
   by putting those in a pyramid_rest.ext.XYZ namespace.
 
 
-Comparison to cornice
-=====================
+Comparison with other frameworks
+================================
+
+cornice
+-------
 
 - Cornice has both a Service and a resource concept, but does not explain how
   they relate. Internally a resource creates a Service and adds views to it,
@@ -272,3 +268,33 @@ Comparison to cornice
   completely.
 
 - For completely unknown reasons cornice uses its own JSON renderer.
+
+
+Django REST
+-----------
+
+- A Djange app, which means have to use Django infrastructure and tools. This
+  may not be a good match for non-typical Django applications.
+
+- It implements its own authorisation mechanism. I’m guessing Django does not
+  have a standard version it can leverage?
+
+- Require a bit more boilerplate than should be necessary.
+
+
+sandman
+-------
+
+- sandman forces your REST API structure to exactly match your database model.
+  In non-trivial systems that will generally not work: if there is any
+  hierarchy in your data model sandman will not reflect that, normalisation is
+  not undone in a REST API which means your REST interface will be much more
+  complex and require more requests than needed, relationships between objects
+  are not exposed.
+
+- sandman does not support any form of authorisation. You can either do nothing
+  at all, or everything.
+
+- sandman does not support any way to add controllers that perform actions.
+  Since it’s flask under the hook you could probably add that yourself if
+  necessary, but this is undocumented.
