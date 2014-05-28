@@ -1,21 +1,22 @@
 class RestState(object):
-    def __init__(self, resource):
-        self.resource = resource
+    def __init__(self, resource_class):
+        self.resource_class = resource_class
         self.views = {}
 
+    def route_name(self):
+        return 'rest-%s' % self.resource_class.__name__
+
     def add_method(self, method, view):
-        if method in self.views:
-            raise ValueError('Multiple %s views for resource %s',
-                    method, self.resource)
         self.views[method] = view
 
     @classmethod
-    def add_to_resource(cls, resource):
-        resource.__rest__ = RestState(resource)
+    def add_to_resource(cls, resource_class):
+        resource_class.__rest__ = state = RestState(resource_class)
+        return state
 
     @classmethod
-    def from_resource(cls, resource):
-        return resource.__rest__
+    def from_resource(cls, resource_class):
+        return resource_class.__rest__
 
     def supported_methods(self):
         return set(self.views) | {'OPTIONS'}
