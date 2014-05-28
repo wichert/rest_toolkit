@@ -1,12 +1,105 @@
-Resource types
---------------
+*rest_toolkit* is a Python package which provides a very convenient way to
+build REST servers. It is build on top of
+[Pyramid](http://www.pylonsproject.org/projects/pyramid/about), but you do not
+need to know much about Pyramid to use rest_toolkit.
 
-Three types of resources:
+Examples
+========
 
-1. Element: a single entity, for example a user.
-2. Collection: a collection of entities, for example the list of all known users.
-3. Controller: a source which only performs some action. Typically a controller
-   only response to a `POST` request.
+This is a minimal example which defines a `Root` resource with a `GET` view,
+and starts a simple HTTP server. If you run this example you can request
+`http://localhost:8080/` and you will see a JSON response with a status
+message.
+
+```python
+from wsgiref.simple_server import make_server
+from rest_toolkit import resource
+from pyramid.config import Configurator
+
+
+@resource('/')
+class Root(object):
+    def __init__(self, request):
+        pass
+
+@Root.GET()
+def show_root(root, request):
+    return {'status': 'OK'}
+
+
+config = Configurator()
+config.scan()
+app = config.make_wsgi_app()
+server = make_server('0.0.0.0', 8080, app)
+server.serve_forever()
+```
+
+The previous example is simple, but real REST services are likely to be
+much more complex, for example because they need to request data from a
+SQL server. The next example shows how you can use SQL data.
+
+
+```python
+from wsgiref.simple_server import make_server
+from rest_toolkit import resource
+from sqlalchemy import Column, Integer, String
+from pyramid_sqlalchemy import BaseObject
+from pyramid_sqlalchemy import Session
+from pyramid.config import Configurator
+
+
+class User(BaseObject):
+    __tablename__ = 'user'
+    id = Column(Integer, primary_key=True)
+    fullname = Column(String)
+
+
+@resource('/users')
+class UserCollection(object):
+    def __init__(self, request):
+        pass
+
+
+@UserCollection.GET()
+def list_users(collection, request):
+    return {'users': [{'id': user.id,
+                       'fullname': user.fullname}
+		       for user in Session.query(User)]}
+
+
+@resource('/users/{id}')
+class UserResource(SQLResource):
+    context_query = sqlalchemy.orm.Query(User)\
+        .filter(User.id==sqlalchemy.bindparam(‘id’))
+
+@UserResource.GET()
+def show_user(user, request):
+    return {'id': user.id, 'fullname': user.fullname}
+
+
+config = Configurator()
+config.scan()
+app = config.make_wsgi_app()
+server = make_server('0.0.0.0', 8080, app)
+server.serve_forever()
+```
+
+This example creates two resources: a `/users` collection which will
+return a list of all users for a `GET`-request, and a `/users/<id>` resource
+which will return information for an individual user on a `GET`-request.
+
+
+Philosphy
+=========
+
+*rest_toolkit* tries to follow the standard
+[REST](http://en.wikipedia.org/wiki/Representational_state_transfer) standards
+for HTTP as much as possible:
+
+* every URL uniquely identifies a *resource*
+* an `OPTIONS` request must return the list of supported request methods in an
+  `Access-Control-Allow-Methods` header.
+* a request using an unsupported request method must return a HTTP 405 error.
 
 A resource typically corresponds to something stored in a database. The mapping
 does not need to be one-to-one: stored data can be exposed at multiple places
@@ -16,6 +109,23 @@ in a list of events he has registered for as `/users/12/events/13`, while an
 event staff member manages the event via a `/events/13`. Both URLs will use the
 same event object in the database, but are separate REST resources, and will
 return different data, use a different ACL, etc.
+
+ *rest_toolkit* follows this philosophy ant matches URLs to resources instead
+ of stored data. This has several advantages:
+
+* your data model does not need to be aware of frontend-specific things like
+  access control lists or JSON formatting.
+* you can easily present the same data in multiple ways.
+
+
+
+Three types of resources:
+
+1. Element: a single entity, for example a user.
+2. Collection: a collection of entities, for example the list of all known users.
+3. Controller: a resource which only performs some action. Typically a controller
+   only response to a `POST` request.
+
 
 
 Defining a resource
@@ -28,7 +138,7 @@ from .models import Event
 
 
 @resource(route_path='/events/{id:\d+}')
-class EventResource(Resource):
+class EventResource(object):
     def __init__(self, request):
         event_id = request.matchdict['id']
         self.event = DBSession.query(Event).get(event_id)
