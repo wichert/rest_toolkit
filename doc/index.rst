@@ -49,6 +49,8 @@ SQL server. The next example shows how you can use SQL data.
 
    from wsgiref.simple_server import make_server
    from rest_toolkit import resource
+   from rest_toolkit.ext.sql import SQLResource
+   from rest_toolkit.ext.sql import configure_session_factory
    from sqlalchemy import Column, Integer, String
    from pyramid_sqlalchemy import BaseObject
    from pyramid_sqlalchemy import Session
@@ -87,6 +89,8 @@ SQL server. The next example shows how you can use SQL data.
    
    if __name__ == '__main__':
        config = Configurator()
+       config.include('rest_toolkit.ext.sql')
+       config.set_sqlalchemy_session_factory(DBSession)
        config.scan()
        app = config.make_wsgi_app()
        server = make_server('0.0.0.0', 8080, app)
@@ -104,6 +108,7 @@ Contents
    :maxdepth: 2
 
    basics
+   sql
    security
    philosophy
    comparison

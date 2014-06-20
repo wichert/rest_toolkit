@@ -260,5 +260,6 @@ texinfo_documents = [
 intersphinx_mapping = {
     'python': ('http://docs.python.org/', None),
     'pyramid': ('http://pyramid.readthedocs.org/en/1.5-branch/', None),
+    'sqlalchemy': ('http://docs.sqlalchemy.org/en/rel_0_9/', None)
     }
 
