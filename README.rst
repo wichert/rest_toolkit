@@ -13,6 +13,7 @@ view, and starts a simple HTTP server. If you run this example you can request
 message.
 
 ::
+
    from rest_toolkit import quick_serve
    from rest_toolkit import resource
 
