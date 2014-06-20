@@ -84,3 +84,18 @@ def includeme(config):
     config.add_view('rest_toolkit.error.generic', context=Exception, renderer='json')
     config.add_notfound_view('rest_toolkit.error.notfound', renderer='json')
     config.add_forbidden_view('rest_toolkit.error.forbidden', renderer='json')
+
+
+def quick_serve(sql_session_factory=None):
+    from wsgiref.simple_server import make_server
+    from pyramid.config import Configurator
+    from pyramid.path import caller_package
+    config = Configurator()
+    config.include('rest_toolkit')
+    if sql_session_factory is not None:
+       config.include('rest_toolkit.ext.sql')
+       config.set_sqlalchemy_session_factory(DBSession)
+    config.scan(caller_package())
+    app = config.make_wsgi_app()
+    server = make_server('0.0.0.0', 8080, app)
+    server.serve_forever()

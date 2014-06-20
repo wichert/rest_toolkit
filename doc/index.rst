@@ -17,9 +17,8 @@ message.
 
 .. code-block:: python
 
-   from wsgiref.simple_server import make_server
+   from rest_toolkit import quick_serve
    from rest_toolkit import resource
-   from pyramid.config import Configurator
 
 
    @resource('/')
@@ -32,13 +31,8 @@ message.
        return {'status': 'OK'}
 
 
-   if __name__ == '__main__'
-       config = Configurator()
-       config.include('rest_toolkit')
-       config.scan()
-       app = config.make_wsgi_app()
-       server = make_server('0.0.0.0', 8080, app)
-       server.serve_forever()
+   if __name__ == '__main__':
+       quick_serve()
 
 
 The previous example is simple, but real REST services are likely to be
@@ -48,14 +42,13 @@ SQL server. The next example shows how you can use SQL data.
 
 .. code-block:: python
 
-   from wsgiref.simple_server import make_server
+   from rest_toolkit import quick_serve
    from rest_toolkit import resource
    from rest_toolkit.ext.sql import SQLResource
    from sqlalchemy import Column, Integer, String, bindparam
    from sqlalchemy.orm import Query
    from pyramid_sqlalchemy import BaseObject
-   from pyramid_sqlalchemy import Session
-   from pyramid.config import Configurator
+   from pyramid_sqlalchemy import DBSession
    
    
    class User(BaseObject):
@@ -74,7 +67,7 @@ SQL server. The next example shows how you can use SQL data.
    def list_users(collection, request):
        return {'users': [{'id': user.id,
                           'fullname': user.fullname}
-                         for user in Session.query(User)]}
+                         for user in DBSession.query(User)]}
    
    
    @resource('/users/{id}')
@@ -88,14 +81,7 @@ SQL server. The next example shows how you can use SQL data.
    
    
    if __name__ == '__main__':
-       config = Configurator()
-       config.include('rest_toolkit')
-       config.include('rest_toolkit.ext.sql')
-       config.set_sqlalchemy_session_factory(DBSession)
-       config.scan()
-       app = config.make_wsgi_app()
-       server = make_server('0.0.0.0', 8080, app)
-       server.serve_forever()
+       quick_serve(DBSession)
 
 This example creates two resources: a ``/users`` collection which will return a
 list of all users for a ``GET``-request, and a ``/users/<id>`` resource which
