@@ -2,6 +2,7 @@
 .*.sw[po]
 /build
 /dist
+/doc/_build
 
 /src/rest_toolkit.egg-info
 
