@@ -50,8 +50,8 @@ SQL server. The next example shows how you can use SQL data.
    from wsgiref.simple_server import make_server
    from rest_toolkit import resource
    from rest_toolkit.ext.sql import SQLResource
-   from rest_toolkit.ext.sql import configure_session_factory
-   from sqlalchemy import Column, Integer, String
+   from sqlalchemy import Column, Integer, String, bindparam
+   from sqlalchemy.orm import Query
    from pyramid_sqlalchemy import BaseObject
    from pyramid_sqlalchemy import Session
    from pyramid.config import Configurator
@@ -78,8 +78,7 @@ SQL server. The next example shows how you can use SQL data.
    
    @resource('/users/{id}')
    class UserResource(SQLResource):
-       context_query = sqlalchemy.orm.Query(User)\
-           .filter(User.id == sqlalchemy.bindparam('id'))
+       context_query = Query(User) .filter(User.id == bindparam('id'))
    
 
    @UserResource.GET()

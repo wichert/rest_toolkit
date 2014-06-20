@@ -22,16 +22,17 @@ define your resources.
 .. code-block:: python
    :linenos:
 
+   from sqlalchemy import bindparam
+   from sqlalchemy.orm import Query
    from rest_toolkit.ext.sql import SQLResource
 
    @resource('/users/{id}')
    class UserResource(SQLResource):
-       context_query = sqlalchemy.orm.Query(User)\
-           .filter(User.id == sqlalchemy.bindparam('id'))
+       context_query = Query(User) .filter(User.id == bindparam('id'))
 
 Line 3 defines the URL path for the resource. This path includes an
 ``id``-variable, which will be used in a SQL query. The query is defined in
-lines 5 and 6. This query uses a :ref:`bound expression
+line 5. This query uses a :ref:`bound expression
 <sqlalchemy:sqlalchemy.sql.expression.bindparam>` to specify where the
 request variable the id must be used.
 
