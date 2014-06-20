@@ -78,3 +78,9 @@ class resource(BaseDecorator):
                               (ControllerDecorator, object),
                               {'state': state})
         return super(resource, self).__call__(cls, depth=2)
+
+
+def includeme(config):
+    config.add_view('rest_toolkit.error.generic', context=Exception, renderer='json')
+    config.add_notfound_view('rest_toolkit.error.notfound', renderer='json')
+    config.add_forbidden_view('rest_toolkit.error.forbidden', renderer='json')

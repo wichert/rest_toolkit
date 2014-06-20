@@ -34,6 +34,7 @@ message.
 
    if __name__ == '__main__'
        config = Configurator()
+       config.include('rest_toolkit')
        config.scan()
        app = config.make_wsgi_app()
        server = make_server('0.0.0.0', 8080, app)
@@ -88,6 +89,7 @@ SQL server. The next example shows how you can use SQL data.
    
    if __name__ == '__main__':
        config = Configurator()
+       config.include('rest_toolkit')
        config.include('rest_toolkit.ext.sql')
        config.set_sqlalchemy_session_factory(DBSession)
        config.scan()
