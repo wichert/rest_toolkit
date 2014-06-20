@@ -32,7 +32,14 @@ cornice
   ACLs, etc. etc.) is either undocumented, very incompletely or missing
   completely.
 
-- For completely unknown reasons cornice uses its own JSON renderer.
+- For unknown reasons cornice uses its own JSON renderer.
+
+- cornice has somem facilities to automatically create documentation for an
+  API using code comments and colander schemas. rest_toolkit does not try to
+  do that: in my experience good documentation can never be generated.
+  Writing documentation requires a different mindset and structure than
+  writing code, and you should not try to mix the two.
+
 
 
 Django REST

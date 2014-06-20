@@ -26,6 +26,8 @@ things:
 * It add CORS headers to response.
 * It adds a default handler for ``OPTIONS`` requests which returns an empty
   response with CORS headers indicating the supported HTTP methods.
+* It will return a `HTTP 405 Method Not Supported` response for any requests
+  using a method for which no view is defined.
 
 
 Responding to requests
