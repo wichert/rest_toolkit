@@ -19,8 +19,8 @@ event staff member manages the event via a ``/events/13``. Both URLs will use th
 same event object in the database, but are separate REST resources, and will
 return different data, use a different ACL, etc.
 
- *rest_toolkit* follows this philosophy ant matches URLs to resources instead
- of stored data. This has several advantages:
+*rest_toolkit* follows this philosophy ant matches URLs to resources instead of
+stored data. This has several advantages:
 
 * your data model does not need to be aware of frontend-specific things like
   access control lists or JSON formatting.

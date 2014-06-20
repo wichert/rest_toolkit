@@ -104,6 +104,7 @@ Contents
    :maxdepth: 2
 
    basics
+   security
    philosophy
    comparison
 

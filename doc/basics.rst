@@ -20,12 +20,12 @@ Defining a resource
                raise KeyError('Unknown event id')
 
 As you can see this the `resource` decorator is essentially a convenient way to
-setup configure a route with a context factory. The `Resource` base class adds
-some extra behaviour that is useful for REST servers:
+setup configure a route with a context factory. It also does a couple of extra
+things:
 
-* It can add CORS headers to response
-* It handles ``OPTIONS`` requests and returns a response with CORS headers
-  indicating which HTTP methods are supported.
+* It add CORS headers to response.
+* It adds a default handler for ``OPTIONS`` requests which returns an empty
+  response with CORS headers indicating the supported HTTP methods.
 
 
 Responding to requests
@@ -70,30 +70,3 @@ decorator.
 
 If you send a ``POST`` to ``/servers/47/reboot`` an instance of the ``Server``
 resource will be created, and its ``reboot`` method will be called.
-
-
-Authorization
--------------
-
-A resource acts as request context within Pyramid, so you can use Pyramid's
-authorization framework directly. Just define a ``__acl__`` attribute or method
-in your resource.
-
-.. code-block:: python
-
-   from pyramid.security import Allow
-   from pyramid.security import Everyone
-   from pyramid_rest import Resource
-   
-   
-   @resource(route_path='/events/{id:\d+}')
-   class EventResource(Resource):
-       ...
-   
-       def __acl__(self):
-           return [(Allow, Everyone, ['read']),
-                   (Allow, self.event.owner, ['delete', 'update'])]
-   
-   @EventResource.GET(permission='read')
-   def view(self):
-       return {...}
