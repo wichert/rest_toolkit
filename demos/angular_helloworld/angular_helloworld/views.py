@@ -1,6 +1,6 @@
-from pyramid.i18n import TranslationStringFactory
+from pyramid.view import view_config
+from .models import MyModel
 
-_ = TranslationStringFactory('angular_helloworld')
-
+@view_config(context=MyModel, renderer="templates/home.jinja2")
 def my_view(request):
     return {'project':'angular_helloworld'}
