@@ -3,10 +3,13 @@
 /build
 /dist
 /doc/_build
+/env*
 
-/src/rest_toolkit.egg-info
+*.egg-info
 
 /.Python
 /bin
 /include
 /lib
+
+.idea
