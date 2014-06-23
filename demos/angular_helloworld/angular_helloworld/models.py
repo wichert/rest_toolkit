@@ -1,7 +1,7 @@
-class MyModel(object):
-    pass
+class DemoSite(object):
+    title = "AngularJs Hello World Demo"
 
-root = MyModel()
+root = DemoSite()
 
 
 def get_root(request):

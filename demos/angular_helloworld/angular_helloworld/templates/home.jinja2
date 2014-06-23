@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
 <head>
   <meta charset="UTF-8">
-  <title>AngularJS Hello World Demo</title>
+  <title>{{ context.title }}</title>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
   <link rel="shortcut icon"
         href="{{ request.application_url }}/static/favicon.ico"/>
   <link rel="stylesheet" type="text/css"
-        href="{{ request.application_url }}/static/demo.css"/>
+        href="{{ request.application_url }}/static/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css"
+        href="{{ request.application_url }}/static/app.css"/>
 </head>
-<body>
-<div id="wrap">
-  <div id="header">
-    <div class="header">AngularJS Hello World Demo
-    </div>
-  </div>
+<body ng-controller="HomeCtrl as HomeCtrl">
+<div class="content container">
+
+  <h2>To Do Items</h2>
+  <ul ng-if="HomeCtrl.todos">
+    <li ng-repeat="todo in HomeCtrl.todos">
+      <span ng-bind="todo.title">title</span>
+    </li>
+  </ul>
+
 </div>
+
+<script
+    src="{{ request.application_url }}/static/angular-1.2.16.js"></script>
+<script src="{{ request.application_url }}/static/app.js"></script>
 </body>
 </html>
