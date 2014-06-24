@@ -13,7 +13,7 @@ angular.module("app", ['ngRoute', 'ngResource'])
         controller: "ListCtrl",
         controllerAs: "ListCtrl",
         resolve: {
-          todos: function ($route, Todos) {
+          todoList: function (Todos) {
             return Todos.get({}).$promise;
           }
         }
@@ -24,7 +24,13 @@ angular.module("app", ['ngRoute', 'ngResource'])
       {
         templateUrl: "view.partial.html",
         controller: "ViewCtrl",
-        controllerAs: "ViewCtrl"
+        controllerAs: "ViewCtrl",
+        resolve: {
+          todo: function (Todos, $route) {
+            return Todos
+              .get({id: $route.current.params.todoId}).$promise;
+          }
+        }
       })
 
       .when(
@@ -32,7 +38,13 @@ angular.module("app", ['ngRoute', 'ngResource'])
       {
         templateUrl: "edit.partial.html",
         controller: "EditCtrl",
-        controllerAs: "EditCtrl"
+        controllerAs: "EditCtrl",
+        resolve: {
+          todo: function (Todos, $route) {
+            return Todos
+              .get({id: $route.current.params.todoId}).$promise;
+          }
+        }
       })
 
       .otherwise({redirectTo: "/"})
@@ -42,12 +54,12 @@ angular.module("app", ['ngRoute', 'ngResource'])
   "Todos",
   function ($resource, endpointURL) {
     return $resource(
-      endpointURL + '/todos/:id',
-      { id: '@id' },
-      {
-        update: {
-          method: "PUT",
-          isArray: false
-        }
-      });
+        endpointURL + '/todos/:id',
+        { id: '@id' },
+        {
+          update: {
+            method: "PUT",
+            isArray: false
+          }
+        });
   });
