@@ -21,13 +21,25 @@ class ViewDecorator(BaseDecorator):
     """Base class for HTTP request method decorators for resources.
 
     This class should never be used directly. It is used internally to create
-    the ``DELETE``, ``GET``, ``OPTIONS``, ``PATCH``, ``POST`` and ``PUT``
-    decorators for resources classes when the :py:func:`resource` decorator is
-    used.
+    the DELETE, GET, OPTIONS, PATCH, POST and PUT decorators for resources
+    classes when the :py:func:`resource` decorator is used.
 
     .. code-block:: python
 
        @MyResource.GET()
+       def get_view_for_my_resource(resource, request):
+           '''Handle GET requests for MyResource.
+           '''
+
+    You not need to specify any parameters to this decorator for normal
+    views. If you need to configure permissions, restrict access to AJAX
+    requests, or anything else you can use all options supported by
+    Pyramid's :ref:`add_view <pyramid:pyramid.config.Configurator.add_view>`
+    function.
+
+    .. code-block:: python
+
+       @MyResource.GET(permission='read', http_cache=timedelta(hours=4))
        def get_view_for_my_resource(resource, request):
            '''Handle GET requests for MyResource.
            '''
@@ -59,7 +71,20 @@ class ControllerDecorator(BaseDecorator):
 
        @MyResource.controller('frobnicate')
        def frobnicate_my_resource(resource, request):
-           '''Handle POST requests to ``/myresource/frobnicate``
+           '''Handle POST requests to /myresource/frobnicate
+           '''
+
+    You not need to specify any parameters to this decorator for normal
+    views. If you need to configure permissions, restrict access to AJAX
+    requests, or anything else you can use all options supported by
+    Pyramid's :ref:`add_view <pyramid:pyramid.config.Configurator.add_view>`
+    function.
+
+    .. code-block:: python
+
+       @MyResource.controller('frobnicate', permission='edit')
+       def frobnicate_my_resource(resource, request):
+           '''Handle POST requests to /myresource/frobnicate
            '''
    """
     default_arguments = {'renderer': 'json'}
