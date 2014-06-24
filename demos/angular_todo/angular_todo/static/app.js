@@ -36,10 +36,29 @@ angular.module("app", ['ngRoute'])
   function ($http) {
     var ctrl = this;
     ctrl.todos = [];
+    ctrl.newTitle = "";
+
     $http.get("/todos")
       .success(function (data) {
                  ctrl.todos = data.todos;
                });
+
+    ctrl.addTodo = function (todoTitle) {
+      $http.post("/todos", {title: todoTitle})
+        .success(function (data) {
+                   ctrl.todos.push(data.todo);
+                   ctrl.newTitle = "";
+                 });
+    };
+
+    ctrl.deleteTodo = function (todoId) {
+      $http.delete("/todos/" + todoId)
+        .success(function () {
+                   // Removed on the server, let's remove locally
+                   _.remove(ctrl.todos, {id: todoId});
+                 });
+    };
+
   })
 
   .controller(

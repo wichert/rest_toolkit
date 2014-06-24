@@ -6,18 +6,19 @@
       <td>
         <a ng-href="#/todos/{{todo.id}}" ng-bind="todo.title">title</a>
       </td>
-      <td>
+      <td width="20%">
         <a ng-href="#/todos/{{todo.id}}/edit"
            class="btn btn-xs btn-default">edit</a>
         <button class="btn btn-xs btn-default"
-                ng-click="deleteTodo(todo)">delete
+                ng-click="ListCtrl.deleteTodo(todo.id)">delete
         </button>
       </td>
     </tbody>
   </table>
-  <form class="form form-inline" ng-submit="addItem(newItem)">
+  <form class="form form-inline"
+        ng-submit="ListCtrl.addTodo(ListCtrl.newTitle)">
     <input type="text" class="input-small"
-           ng-model="newTitle" placeholder="Title...">
+           ng-model="ListCtrl.newTitle" placeholder="Title...">
     <button class="btn btn-xs btn-primary" type="submit">New Item</button>
   </form>
 

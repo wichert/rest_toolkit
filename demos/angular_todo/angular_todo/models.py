@@ -1,8 +1,8 @@
 class DemoSite(object):
     title = "AngularJs Todo Demo"
 
-root = DemoSite()
-
 
 def get_root(request):
+    root = DemoSite()
+
     return root

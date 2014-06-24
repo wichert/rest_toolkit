@@ -1,5 +1,7 @@
-from rest_toolkit import resource
+from random import randint
 from pyramid.view import view_config
+from rest_toolkit import resource
+
 from .models import DemoSite
 
 todos = {
@@ -30,6 +32,15 @@ class TodoCollection(object):
 def list_todos(collection, request):
     return {"todos": list(todos.values())}
 
+@TodoCollection.POST()
+def add_todo(collection, request):
+    todo = {
+        "id": "td" + str(randint(100, 9999)),
+        "title": request.json_body["title"]
+    }
+    todos[todo["id"]] = todo
+    return {"todo": todo}
+
 
 @resource('/todos/{id}')
 class TodoResource(object):
@@ -44,4 +55,9 @@ def view_todo(todo, request):
 @TodoResource.PUT()
 def update_todo(todo, request):
     todo.data['title'] = request.json_body['title']
-    return todo.data
+    return {}
+
+@TodoResource.DELETE()
+def delete_todo(todo, request):
+    del todos[todo.data["id"]]
+    return {}
