@@ -20,6 +20,14 @@ angular.module("app", ['ngRoute'])
         controllerAs: "ViewCtrl"
       })
 
+      .when(
+      '/todos/:todoId/edit',
+      {
+        templateUrl: "/static/edit.partial.html",
+        controller: "EditCtrl",
+        controllerAs: "EditCtrl"
+      })
+
       .otherwise({redirectTo: "/"})
   })
 
@@ -45,4 +53,25 @@ angular.module("app", ['ngRoute'])
       .success(function (data) {
                  ctrl.todo = data;
                });
+  })
+
+  .controller(
+  "EditCtrl",
+  function ($routeParams, $http, $location) {
+    var ctrl = this;
+    var todoId = $routeParams.todoId;
+
+    ctrl.todo = {};
+    $http.get("/todos/" + todoId)
+      .success(function (data) {
+                 ctrl.todo.title = data.title;
+               });
+
+    // Handle the submit
+    ctrl.updateTodo = function () {
+      $http.put("/todos/" + todoId, ctrl.todo)
+        .success(function () {
+                   $location.path("#/");
+                 });
+    }
   });

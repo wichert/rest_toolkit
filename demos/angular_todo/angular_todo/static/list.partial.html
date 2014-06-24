@@ -4,15 +4,14 @@
     <tbody>
     <tr ng-repeat="todo in ListCtrl.todos">
       <td>
-        <a ng-href="#/todos/1" ng-bind="todo.title">title</a>
+        <a ng-href="#/todos/{{todo.id}}" ng-bind="todo.title">title</a>
       </td>
       <td>
-          <button class="btn btn-xs"
-                  ng-click="editTodo(todo)">edit
-          </button>
-          <button class="btn btn-xs"
-                  ng-click="deleteTodo(todo)">delete
-          </button>
+        <a ng-href="#/todos/{{todo.id}}/edit"
+           class="btn btn-xs btn-default">edit</a>
+        <button class="btn btn-xs btn-default"
+                ng-click="deleteTodo(todo)">delete
+        </button>
       </td>
     </tbody>
   </table>
