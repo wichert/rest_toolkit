@@ -21,8 +21,6 @@ angular_todo
 angular_cors
 ============
 
-- angularui.bootstrap
-- Paste pants leg (to get x-domain CORS)
 - controller.js
 * Don't have the Jinja2/Angular delimiter overlap
 * Can rev UI with simple static file delivery and update
