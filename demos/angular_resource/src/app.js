@@ -1,4 +1,4 @@
-angular.module("app", ['ngRoute'])
+angular.module("app", ['ngRoute', 'ngResource'])
 
   .value("endpointURL", "http://localhost:6543")
 
@@ -11,7 +11,12 @@ angular.module("app", ['ngRoute'])
       {
         templateUrl: "list.partial.html",
         controller: "ListCtrl",
-        controllerAs: "ListCtrl"
+        controllerAs: "ListCtrl",
+        resolve: {
+          todos: function ($route, Todos) {
+            return Todos.get({}).$promise;
+          }
+        }
       })
 
       .when(
@@ -31,4 +36,18 @@ angular.module("app", ['ngRoute'])
       })
 
       .otherwise({redirectTo: "/"})
+  })
+
+  .factory(
+  "Todos",
+  function ($resource) {
+    return $resource(
+      '/todos/:id',
+      { id: '@id' },
+      {
+        update: {
+          method: "PUT",
+          isArray: false
+        }
+      });
   });
