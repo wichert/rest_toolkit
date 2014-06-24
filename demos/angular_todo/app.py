@@ -1,8 +1,7 @@
 from random import randint
-from pyramid.view import view_config
-from rest_toolkit import resource
 
-from .models import DemoSite
+from rest_toolkit import quick_serve
+from rest_toolkit import resource
 
 todos = {
     "td1": {"id": "td1", "title": "Firstie"},
@@ -10,16 +9,6 @@ todos = {
     "td3": {"id": "td3", "title": "Another"},
     "td4": {"id": "td4", "title": "Last"}
 }
-
-
-class DemoViews:
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    @view_config(context=DemoSite, renderer="templates/home.jinja2")
-    def home_view(self):
-        return {}
 
 
 @resource('/todos')
@@ -61,3 +50,9 @@ def update_todo(todo, request):
 def delete_todo(todo, request):
     del todos[todo.data["id"]]
     return {}
+
+
+if __name__ == '__main__':
+    quick_serve(
+        port=8088, allow_origin="*",
+        allow_headers="Origin, Content-Type, Accept, Authorization")
