@@ -8,7 +8,7 @@ angular_helloworld
 The simplest possible demo. Uses Bootstrap, but not much else.
 Demonstrates:
 
-- A single endpoint that returns a random number
+- A single endpoint that lists some items
 
 
 angular_todo
