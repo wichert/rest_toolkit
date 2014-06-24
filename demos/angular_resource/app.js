@@ -1,6 +1,6 @@
 angular.module("app", ['ngRoute', 'ngResource'])
 
-  .value("endpointURL", "http://localhost:6543")
+  .value("endpointURL", "http://localhost:8088")
 
   .config(
   function ($routeProvider) {
