@@ -6,8 +6,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 
 requires = [
-    'pyramid',
-    'pyramid_jinja2'
+    'pyramid'
 ]
 
 setup(name='angular_cors',

@@ -1,5 +1,7 @@
 angular.module("app", ['ngRoute'])
 
+  .value("endpointURL", "http://localhost:6543")
+
   .config(
   function ($routeProvider) {
 
@@ -7,7 +9,7 @@ angular.module("app", ['ngRoute'])
       .when(
       '/',
       {
-        templateUrl: "/static/list.partial.html",
+        templateUrl: "list.partial.html",
         controller: "ListCtrl",
         controllerAs: "ListCtrl"
       })
@@ -15,7 +17,7 @@ angular.module("app", ['ngRoute'])
       .when(
       '/todos/:todoId',
       {
-        templateUrl: "/static/view.partial.html",
+        templateUrl: "view.partial.html",
         controller: "ViewCtrl",
         controllerAs: "ViewCtrl"
       })
@@ -23,7 +25,7 @@ angular.module("app", ['ngRoute'])
       .when(
       '/todos/:todoId/edit',
       {
-        templateUrl: "/static/edit.partial.html",
+        templateUrl: "edit.partial.html",
         controller: "EditCtrl",
         controllerAs: "EditCtrl"
       })
@@ -33,18 +35,19 @@ angular.module("app", ['ngRoute'])
 
   .controller(
   "ListCtrl",
-  function ($http) {
+  function ($http, endpointURL) {
+
     var ctrl = this;
     ctrl.todos = [];
     ctrl.newTitle = "";
 
-    $http.get("/todos")
+    $http.get(endpointURL + "/todos")
       .success(function (data) {
                  ctrl.todos = data.todos;
                });
 
     ctrl.addTodo = function (todoTitle) {
-      $http.post("/todos", {title: todoTitle})
+      $http.post(endpointURL + "/todos", {title: todoTitle})
         .success(function (data) {
                    ctrl.todos.push(data.todo);
                    ctrl.newTitle = "";
@@ -52,7 +55,7 @@ angular.module("app", ['ngRoute'])
     };
 
     ctrl.deleteTodo = function (todoId) {
-      $http.delete("/todos/" + todoId)
+      $http.delete(endpointURL + "/todos/" + todoId)
         .success(function () {
                    // Removed on the server, let's remove locally
                    _.remove(ctrl.todos, {id: todoId});
@@ -63,12 +66,13 @@ angular.module("app", ['ngRoute'])
 
   .controller(
   "ViewCtrl",
-  function ($routeParams, $http) {
+  function ($routeParams, $http, endpointURL) {
+
     var ctrl = this;
     var todoId = $routeParams.todoId;
 
     ctrl.todo = {};
-    $http.get("/todos/" + todoId)
+    $http.get(endpointURL + "/todos/" + todoId)
       .success(function (data) {
                  ctrl.todo = data;
                });
@@ -76,19 +80,19 @@ angular.module("app", ['ngRoute'])
 
   .controller(
   "EditCtrl",
-  function ($routeParams, $http, $location) {
+  function ($routeParams, $http, $location, endpointURL) {
     var ctrl = this;
     var todoId = $routeParams.todoId;
 
     ctrl.todo = {};
-    $http.get("/todos/" + todoId)
+    $http.get(endpointURL + "/todos/" + todoId)
       .success(function (data) {
                  ctrl.todo.title = data.title;
                });
 
     // Handle the submit
     ctrl.updateTodo = function () {
-      $http.put("/todos/" + todoId, ctrl.todo)
+      $http.put(endpointURL + "/todos/" + todoId, ctrl.todo)
         .success(function () {
                    $location.path("#/");
                  });
