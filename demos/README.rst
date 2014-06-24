@@ -14,9 +14,19 @@ Demonstrates:
 angular_todo
 ============
 
-- angularui.bootstrap
 - SPA with ngRoute
 - CRUD
+- Explain the JSON [] vs. {}
+
+angular_cors
+============
+
+- angularui.bootstrap
+- Paste pants leg (to get x-domain CORS)
+- controller.js
+* Don't have the Jinja2/Angular delimiter overlap
+* Can rev UI with simple static file delivery and update
+
 
 angular_todo_ngresource
 =======================
@@ -32,3 +42,4 @@ angular_todo_jwtauth
 angular_todo_validation
 =======================
 
+- ngForm patterns

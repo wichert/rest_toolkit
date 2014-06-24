@@ -11,19 +11,15 @@
   <link rel="stylesheet" type="text/css"
         href="{{ request.application_url }}/static/app.css"/>
 </head>
-<body ng-controller="HomeCtrl as HomeCtrl">
+<body>
 <div class="content container">
 
-  <h2>To Do Items</h2>
-  <ul ng-if="HomeCtrl.todos">
-    <li ng-repeat="todo in HomeCtrl.todos">
-      <span ng-bind="todo.title">title</span>
-    </li>
-  </ul>
+  <div ng-view/>
 
 </div>
 
 <script src="{{ request.application_url }}/static/angular.min.js"></script>
+<script src="{{ request.application_url }}/static/angular-route.min.js"></script>
 <script src="{{ request.application_url }}/static/app.js"></script>
 </body>
 </html>
