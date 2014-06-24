@@ -100,6 +100,7 @@ Contents
    philosophy
    comparison
    api
+   changes
 
 
 Indices and tables

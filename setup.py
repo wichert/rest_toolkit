@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 import sys
 
-version = '1.0dev'
+version = '0.1'
 
 install_requires = [
         'pyramid',
@@ -33,6 +33,9 @@ setup(name='rest_toolkit',
       long_description=open('README.rst').read() + '\n' +
               open('changes.rst').read(),
       classifiers=[
+          'Development Status :: 3 - Alpha',
+          'Environment :: Web Environment',
+          'Framework :: Pyramid',
           'Intended Audience :: Developers',
           'License :: DFSG approved',
           'License :: OSI Approved :: BSD License',
@@ -43,6 +46,7 @@ setup(name='rest_toolkit',
           'Programming Language :: Python :: 3',
           'Programming Language :: Python :: 3.3',
           'Programming Language :: Python :: 3.4',
+          'Topic :: Internet :: WWW/HTTP :: WSGI',
           'Topic :: Software Development :: Libraries :: Python Modules',
       ],
       keywords='REST Pyramid',
