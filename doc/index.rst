@@ -99,7 +99,7 @@ Contents
    security
    philosophy
    comparison
-
+   api
 
 
 Indices and tables

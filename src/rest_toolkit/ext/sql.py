@@ -27,5 +27,19 @@ def set_sqlalchemy_session_factory(config, factory):
 
 
 def includeme(config):
+    """Configure SQLAlchemy integration.
+
+    You should not call this function directly, but use
+    :py:func:`pyramid.config.Configurator.include` to initialise the REST
+    toolkit. After you have done this you must call
+    :py:func:`config.set_sqlalchemy_session_factory` to register your
+    SQLALchemy session factory.
+
+    .. code-block:: python
+
+       config = Configurator()
+       config.include('rest_toolkit')
+       config.set_sqlalchemy_session_factory(DBSession)
+    """
     config.add_directory('set_sqlalchemy_session_factory',
             set_sqlalchemy_session_factory)

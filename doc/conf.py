@@ -18,7 +18,9 @@ import os
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../src'))
+sys.path.insert(0, os.path.abspath('.'))
+import rest_toolkit
 
 # -- General configuration ------------------------------------------------
 
@@ -28,7 +30,8 @@ import os
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.intersphinx']
+extensions = ['sphinx.ext.autodoc',
+              'sphinx.ext.intersphinx']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -258,8 +261,8 @@ texinfo_documents = [
 #texinfo_no_detailmenu = False
 
 intersphinx_mapping = {
-    'python': ('http://docs.python.org/', None),
+    'python': ('http://docs.python.org/2/', None),
     'pyramid': ('http://pyramid.readthedocs.org/en/1.5-branch/', None),
-    'sqlalchemy': ('http://docs.sqlalchemy.org/en/rel_0_9/', None)
+    'sqlalchemy': ('http://docs.sqlalchemy.org/en/latest/', None)
     }
 
