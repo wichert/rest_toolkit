@@ -40,9 +40,9 @@ angular.module("app", ['ngRoute', 'ngResource'])
 
   .factory(
   "Todos",
-  function ($resource) {
+  function ($resource, endpointURL) {
     return $resource(
-      '/todos/:id',
+      endpointURL + '/todos/:id',
       { id: '@id' },
       {
         update: {

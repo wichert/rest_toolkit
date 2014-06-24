@@ -2,21 +2,16 @@ angular.module("app")
 
   .controller(
   "ListCtrl",
-  function ($http, endpointURL) {
+  function ($log, $http, endpointURL, todos) {
 
     var ctrl = this;
-    ctrl.todos = [];
+    ctrl.todos = todos.data;
     ctrl.newTitle = "";
-
-    $http.get(endpointURL + "/todos")
-      .success(function (data) {
-                 ctrl.todos = data.todos;
-               });
 
     ctrl.addTodo = function (todoTitle) {
       $http.post(endpointURL + "/todos", {title: todoTitle})
-        .success(function (data) {
-                   ctrl.todos.push(data.todo);
+        .success(function (todo) {
+                   ctrl.todos.push(todo.data);
                    ctrl.newTitle = "";
                  });
     };

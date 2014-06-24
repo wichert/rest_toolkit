@@ -16,7 +16,7 @@ class TodoCollection(object):
 
 @TodoCollection.GET()
 def list_todos(collection, request):
-    return {"todos": list(todos.values())}
+    return {"data": list(todos.values())}
 
 @TodoCollection.POST()
 def add_todo(collection, request):
@@ -25,7 +25,7 @@ def add_todo(collection, request):
         "title": request.json_body["title"]
     }
     todos[todo["id"]] = todo
-    return {"todo": todo}
+    return {"data": todo}
 
 
 @resource('/todos/{id}')
