@@ -1,16 +1,6 @@
+from rest_toolkit import quick_serve
 from rest_toolkit import resource
-from pyramid.view import view_config
-from .models import DemoSite
 
-
-class DemoViews:
-    def __init__(self, context, request):
-        self.context = context
-        self.request = request
-
-    @view_config(context=DemoSite, renderer="templates/home.jinja2")
-    def home_view(self):
-        return {}
 
 @resource('/todos')
 class TodoCollection(object):
@@ -26,3 +16,9 @@ def list_todos(collection, request):
         {"id": "t3", "title": "Another"},
         {"id": "t4", "title": "Last"}
     ]}
+
+
+if __name__ == '__main__':
+    quick_serve(
+        port=8088, allow_origin="*",
+        allow_headers="Origin, Content-Type, Accept, Authorization")

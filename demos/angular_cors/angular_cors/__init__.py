@@ -1,4 +1,5 @@
 from pyramid.config import Configurator
+from pyramid.events import NewRequest
 from .models import get_root
 
 
@@ -10,9 +11,6 @@ def add_cors_headers_response_callback(event):
         })
 
     event.request.add_response_callback(cors_headers)
-
-
-from pyramid.events import NewRequest
 
 
 def main(global_config, **settings):

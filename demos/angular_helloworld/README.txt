@@ -1,3 +1,0 @@
-angular_helloworld README
-
-
