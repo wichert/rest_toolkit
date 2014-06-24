@@ -1,3 +1,0 @@
-angular_todo README
-
-

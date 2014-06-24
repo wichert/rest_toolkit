@@ -18,16 +18,8 @@ angular_todo
 - CRUD
 - Explain the JSON [] vs. {}
 
-angular_cors
-============
-
-- controller.js
-* Don't have the Jinja2/Angular delimiter overlap
-* Can rev UI with simple static file delivery and update
-
-
-angular_todo_ngresource
-=======================
+angular_resource
+================
 
 
 angular_todo_restangular

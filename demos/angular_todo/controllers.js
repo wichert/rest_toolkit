@@ -3,7 +3,6 @@ angular.module("app")
   .controller(
   "ListCtrl",
   function ($http, endpointURL) {
-
     var ctrl = this;
     ctrl.todos = [];
     ctrl.newTitle = "";
@@ -34,7 +33,6 @@ angular.module("app")
   .controller(
   "ViewCtrl",
   function ($routeParams, $http, endpointURL) {
-
     var ctrl = this;
     var todoId = $routeParams.todoId;
 
