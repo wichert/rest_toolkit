@@ -2,12 +2,12 @@ Security
 ========
 
 *rest_toolkit* allows you to use the :ref:`Pyramid's security
-<pyramid:security-chapter>` system directly. To use this you need to do a
+<pyramid:security_chapter>` system directly. To use this you need to do a
 couple of things:
 
 * :ref:`Configure authentication and authorization policies
-  <pyramid:enabling-authorization-policy>`.
-* Define an :ref:`Access Control List (ACL) <pyramid:elements-of-an-acl>` for
+  <pyramid:enabling_authorization_policy>`.
+* Define an :ref:`Access Control List (ACL) <pyramid:assigning_acls>` for
   your resources.
 
 
@@ -26,7 +26,7 @@ permission on a view.
    from pyramid_rest import Resource
    
    
-   @resource(route_path='/events/{id:\d+}')
+   @resource('/events/{id:\d+}')
    class EventResource(Resource):
        ...
    
