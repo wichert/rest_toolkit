@@ -1,0 +1,25 @@
+<div>
+  <h2>To Do Items</h2>
+  <table class="table table-striped table-hover">
+    <tbody>
+    <tr ng-repeat="todo in ListCtrl.todos">
+      <td>
+        <a ng-href="#/todos/{{todo.id}}" ng-bind="todo.title">title</a>
+      </td>
+      <td width="20%">
+        <a ng-href="#/todos/{{todo.id}}/edit"
+           class="btn btn-xs btn-default">edit</a>
+        <button class="btn btn-xs btn-default"
+                ng-click="ListCtrl.deleteTodo(todo.id)">delete
+        </button>
+      </td>
+    </tbody>
+  </table>
+  <form class="form form-inline"
+        ng-submit="ListCtrl.addTodo(ListCtrl.newTitle)">
+    <input type="text" class="input-small"
+           ng-model="ListCtrl.newTitle" placeholder="Title...">
+    <button class="btn btn-xs btn-primary" type="submit">New Item</button>
+  </form>
+
+</div>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Hello World Demo</title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+  <link rel="stylesheet" href="lib/bootstrap.min.css"/>
+</head>
+<body ng-controller="HomeCtrl as HomeCtrl">
+<div class="container">
+
+  <h2>To Do Items</h2>
+  <ul ng-if="HomeCtrl.todos">
+    <li ng-repeat="todo in HomeCtrl.todos">
+      <span ng-bind="todo.title">title</span>
+    </li>
+  </ul>
+
+</div>
+
+<script src="lib/angular.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
