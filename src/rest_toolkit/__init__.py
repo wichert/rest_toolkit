@@ -19,6 +19,20 @@ class BaseDecorator(object):
 
 
 class ViewDecorator(BaseDecorator):
+    """Base class for HTTP request method decorators for resources.
+
+    This class should never be used directly. It is used internally to create
+    the ``DELETE``, ``GET``, ``OPTIONS``, ``PATCH``, ``POST`` and ``PUT``
+    decorators for resources classes when the :py:func:`resource` decorator is
+    used.
+
+    .. code-block:: python
+
+       @MyResource.GET()
+       def get_view_for_my_resource(resource, request):
+           '''Handle GET requests for MyResource.
+           '''
+    """
     default_arguments = {'renderer': 'json'}
 
     def __init__(self, **kw):
@@ -36,6 +50,19 @@ class ViewDecorator(BaseDecorator):
 
 
 class ControllerDecorator(BaseDecorator):
+    """Base class for controller views for resources.
+
+    This class should never be used directly. It is used internally to create
+    the `controller`decorator for resources classes when the
+    :py:func:`resource` decorator is used.
+
+    .. code-block:: python
+
+       @MyResource.controller('frobnicate')
+       def frobnicate_my_resource(resource, request):
+           '''Handle POST requests to ``/myresource/frobnicate``
+           '''
+   """
     default_arguments = {'renderer': 'json'}
 
     def __init__(self, name, **kw):
@@ -59,8 +86,27 @@ class ControllerDecorator(BaseDecorator):
 
 
 class resource(BaseDecorator):
-    def __init__(self, route_path, **settings):
-        self.route_path = route_path
+    """Configure a REST resource.
+
+    This decorator must be used to declare REST resources.
+
+    .. code-block:: python
+
+       from rest_toolkit import resource
+
+       @resource('/users/{id}')
+       class User:
+           def __init__(self, request):
+               self.user_id = request.matchdict['id']
+
+
+    :param route_path: The URL route pattern to use for the resource.
+
+       For more information on route patterns please see the :ref:`Pyramid
+       route pattern syntax <pyramid:route_pattern_syntax>` documentation.
+    """
+    def __init__(self, pattern):
+        self.route_path = pattern
 
     def callback(self, scanner, name, cls):
         state = RestState.from_resource(cls)
@@ -85,6 +131,17 @@ class resource(BaseDecorator):
 
 
 def includeme(config):
+    """Configure basic REST settings for a Pyramid application.
+
+    You should not call this function directly, but use
+    :py:func:`pyramid.config.Configurator.include` to initialise
+    the REST toolkit.
+
+    .. code-block:: python
+
+       config = Configurator()
+       config.include('rest_toolkit')
+    """
     config.add_view('rest_toolkit.error.generic', context=Exception, renderer='json')
     config.add_notfound_view('rest_toolkit.error.notfound', renderer='json')
     config.add_forbidden_view('rest_toolkit.error.forbidden', renderer='json')
