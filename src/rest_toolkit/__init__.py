@@ -174,6 +174,7 @@ def quick_serve(sql_session_factory=None, port=8080):
         session. This is generally a :ref:`scoped_session
         <sqlalchemy:sqlalchemy.orm.scoping.scoped_session>` instance, and
         commonly called ``Session`` or ``DBSession``.
+    :param int port: TCP port to use for HTTP server.
     """
     config = Configurator()
     config.include('rest_toolkit')
