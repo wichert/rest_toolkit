@@ -19,6 +19,4 @@ def list_todos(collection, request):
 
 
 if __name__ == '__main__':
-    quick_serve(
-        port=8088, allow_origin="*",
-        allow_headers="Origin, Content-Type, Accept, Authorization")
+    quick_serve(port=8088)

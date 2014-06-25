@@ -7,10 +7,6 @@ Questions
 TODO
 ====
 
-- Get READMEs up to date
-
-- Revert the quick_serve stuff and instead default to assets="."
-
 - Merge
 
 - Proper CORS demo

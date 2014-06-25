@@ -1,4 +1,3 @@
-from pyramid.events import NewRequest
 import venusian
 from .state import RestState
 from .views import unsupported_method_view
@@ -87,44 +86,21 @@ def includeme(config):
     config.add_forbidden_view('rest_toolkit.error.forbidden', renderer='json')
 
 
-def quick_serve(sql_session_factory=None, port=8080,
-                allow_origin=None, allow_headers=None):
-
+def quick_serve(sql_session_factory=None, port=8080):
     from wsgiref.simple_server import make_server
     from pyramid.config import Configurator
     from pyramid.path import caller_package
+    from pyramid.path import package_path
     config = Configurator()
     config.include('rest_toolkit')
     if sql_session_factory is not None:
        config.include('rest_toolkit.ext.sql')
        config.set_sqlalchemy_session_factory(DBSession)
-    config.scan(caller_package())
 
-    # Add configurable CORS header support
-    # TODO refactor to make the way you get this info into quick_serve
-    # less stupid
-    if allow_origin:
-        def add_origin_response_callback(event):
-            def cors_origin(request, response):
-                response.headers.update({
-                    'Access-Control-Allow-Origin': allow_origin
-                })
-
-            event.request.add_response_callback(cors_origin)
-        config.add_subscriber(add_origin_response_callback, NewRequest)
-
-    if allow_headers:
-        def add_headers_response_callback(event):
-            def cors_headers(request, response):
-                response.headers.update({
-                    'Access-Control-Allow-Headers': allow_headers
-                })
-
-            event.request.add_response_callback(cors_headers)
-
-        config.add_subscriber(add_headers_response_callback, NewRequest)
-
-
+    # Publish the caller's path as a static asset view
+    pkg = caller_package()
+    config.add_static_view('static', package_path(pkg))
+    config.scan(pkg)
     app = config.make_wsgi_app()
     server = make_server('0.0.0.0', port, app)
     server.serve_forever()

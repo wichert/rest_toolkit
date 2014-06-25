@@ -16,7 +16,7 @@ Usage
 
 - ``python app.py``
 
-- Go to ``http://localhost:6543/``
+- Go to ``http://localhost:8088/static/index.html``
 
 Implementation
 ==============
@@ -26,8 +26,8 @@ Implementation
   
 - Uses the demo-oriented ``quick_serve`` from ``rest_toolkit`` to point 
   at the static files and serve them up under 
-  ``http://localhost:6543/static`` with the REST API under 
-  ``http://localhost:6543/todos``
+  ``http://localhost:8088/static`` with the REST API under 
+  ``http://localhost:8088/todos``
   
 - An AngularJS application in ``index.html`` which loads the module in 
   ``app.js``, plus Boostrap CSS

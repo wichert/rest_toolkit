@@ -15,7 +15,7 @@ Usage
 
 - ``python app.py``
 
-- Go to ``http://localhost:6543/``
+- Go to ``http://localhost:8088/static/index.html``
 
 Implementation
 ==============
