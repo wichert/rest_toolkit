@@ -7,13 +7,7 @@ Questions
 TODO
 ====
 
-- Merge
-
-- Proper CORS demo
-
 - Security demo
-
-
 
 
 angular_todo_jwtauth

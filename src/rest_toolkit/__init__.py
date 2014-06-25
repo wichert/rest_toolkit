@@ -1,3 +1,7 @@
+from wsgiref.simple_server import make_server
+from pyramid.config import Configurator
+from pyramid.path import caller_package
+from pyramid.path import package_path
 import venusian
 from .state import RestState
 from .views import unsupported_method_view
@@ -87,16 +91,38 @@ def includeme(config):
 
 
 def quick_serve(sql_session_factory=None, port=8080):
-    from wsgiref.simple_server import make_server
-    from pyramid.config import Configurator
-    from pyramid.path import caller_package
-    from pyramid.path import package_path
+    """Start a HTTP server for your REST service.
+
+    This function provides quick way to run a webserver for your REST service.
+    The webserver will listen on port 8080 on all IP addresses of the local
+    machine.
+
+    If you need to configure the underlying Pyramid system, or you want to use
+    a different HTTP server you will need to create the WSGI application
+    yourself. Instead of using `quick_serve` you will need to do something like
+    this:
+
+    .. code-block:: python
+
+       from pyramid.config import Configurator
+       from wsgiref.simple_server import make_server
+
+       config = Configurator()
+       config.include('rest_toolkit')
+       config.scan()
+       app = config.make_wsgi_app()
+       make_server('0.0.0.0', 8080, app).serve_forever()
+
+    :param sql_session_factory: A factory function to return a SQLAlchemy
+        session. This is generally a :ref:`scoped_session
+        <sqlalchemy:sqlalchemy.orm.scoping.scoped_session>` instance, and
+        commonly called ``Session`` or ``DBSession``.
+    """
     config = Configurator()
     config.include('rest_toolkit')
     if sql_session_factory is not None:
-       config.include('rest_toolkit.ext.sql')
-       config.set_sqlalchemy_session_factory(DBSession)
-
+        config.include('rest_toolkit.ext.sql')
+        config.set_sqlalchemy_session_factory(sql_session_factory)
     # Publish the caller's path as a static asset view
     pkg = caller_package()
     config.add_static_view('static', package_path(pkg))
@@ -104,3 +130,6 @@ def quick_serve(sql_session_factory=None, port=8080):
     app = config.make_wsgi_app()
     server = make_server('0.0.0.0', port, app)
     server.serve_forever()
+
+
+__all__ = ['resource', 'quick_serve']
