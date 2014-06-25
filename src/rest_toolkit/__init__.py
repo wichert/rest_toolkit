@@ -124,7 +124,7 @@ class resource(BaseDecorator):
                self.user_id = request.matchdict['id']
 
 
-    :param route_path: The URL route pattern to use for the resource.
+    :param pattern: The URL route pattern to use for the resource.
 
        For more information on route patterns please see the :ref:`Pyramid
        route pattern syntax <pyramid:route_pattern_syntax>` documentation.
@@ -188,7 +188,7 @@ def quick_serve(sql_session_factory=None):
        from pyramid.config import Configurator
        from wsgiref.simple_server import make_server
 
-       config = Configurator
+       config = Configurator()
        config.include('rest_toolkit')
        config.scan()
        app = config.make_wsgi_app()

@@ -11,7 +11,7 @@ Defining a resource
    from .models import Event
    
    
-   @resource(route_path='/events/{id:\d+}')
+   @resource('/events/{id:\d+}')
    class EventResource(object):
        def __init__(self, request):
            event_id = request.matchdict['id']

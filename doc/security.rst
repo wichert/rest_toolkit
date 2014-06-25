@@ -26,7 +26,7 @@ permission on a view.
    from pyramid_rest import Resource
    
    
-   @resource(route_path='/events/{id:\d+}')
+   @resource('/events/{id:\d+}')
    class EventResource(Resource):
        ...
    
