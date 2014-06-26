@@ -181,7 +181,6 @@ def quick_serve(sql_session_factory=None, port=8080):
     if sql_session_factory is not None:
         config.include('rest_toolkit.ext.sql')
         config.set_sqlalchemy_session_factory(sql_session_factory)
-    # Publish the caller's path as a static asset view
     pkg = caller_package()
     config.add_static_view('static', package_path(pkg))
     config.scan(pkg)
