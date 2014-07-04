@@ -1,13 +1,19 @@
+import abc
+
 _session_factory = None
 
 
 class SQLResource(object):
     """Base class for resources based on SQLAlchemy ORM models.
-
     """
 
-    #: A SQLAlchemy query which is used to find a SQLAlchemy object.
-    context_query = None
+    __metaclass__ = abc.ABCMeta
+
+    @abc.abstractproperty
+    def context_query(self):
+        """A SQLAlchemy query which is used to find a SQLAlchemy object.
+        """
+        raise NotImplemented()
 
     def __init__(self, request):
         global _session_factory
