@@ -71,6 +71,11 @@ class DeletableResource(object):
 
     @abc.abstractmethod
     def delete(self):
+        """Delete the resource.
+
+        This method must delete the resource, or mark it as deleted, so that it
+        is no longer accessible through the REST API.
+        """
         raise NotImplemented()
 
 
