@@ -1,11 +1,15 @@
 import abc
 from ..compat import add_metaclass
+from ..abc import DeletableResource
+from ..abc import EditableResource
+from ..abc import ViewableResource
+from sqlalchemy.orm import object_session
 
 _session_factory = None
 
 
 @add_metaclass(abc.ABCMeta)
-class SQLResource(object):
+class SQLResource(DeletableResource, EditableResource, ViewableResource):
     """Base class for resources based on SQLAlchemy ORM models.
     """
 
@@ -23,6 +27,24 @@ class SQLResource(object):
         self.context = _session_factory.execute(self.context_query, params).first()
         if self.context is None:
             raise KeyError('Resource not found')
+
+    def to_dict(self):
+        data = {}
+        columns = self.context_query._primary_entity.entity_zero.columns
+        for column in columns:
+            data[column] = getattr(self.context, column)
+        return data
+
+    def update_from_dict(self, data, partial=False):
+        columns = self.context_query._primary_entity.entity_zero.columns
+        for column in columns:
+            if partial:
+                setattr(self.context, column, data.get(column))
+            else:
+                setattr(self.context, column, data[column])
+
+    def delete(self):
+        object_session(self.context).delete(self.context)
 
 
 def set_sqlalchemy_session_factory(config, sql_session_factory):
