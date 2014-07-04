@@ -1,13 +1,13 @@
 import abc
+from ..compat import add_metaclass
 
 _session_factory = None
 
 
+@add_metaclass(abc.ABCMeta)
 class SQLResource(object):
     """Base class for resources based on SQLAlchemy ORM models.
     """
-
-    __metaclass__ = abc.ABCMeta
 
     @abc.abstractproperty
     def context_query(self):
