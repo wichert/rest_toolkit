@@ -70,3 +70,19 @@ def test_controller_invalid_method(method):
     config.scan('controller')
     app = make_app(config)
     getattr(app, method)('/', status=405)
+
+
+def test_default_get_view():
+    config = Configurator()
+    config.scan('resource_abc')
+    app = make_app(config)
+    r = app.get('/')
+    assert r.json == {'message': 'Hello, world'}
+
+
+def test_override_default_view():
+    config = Configurator()
+    config.scan('resource_abc_override')
+    app = make_app(config)
+    r = app.get('/')
+    assert r.json == {'message': 'Welcome'}

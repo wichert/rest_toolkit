@@ -17,6 +17,21 @@ rest_toolkit
 .. autoclass:: ControllerDecorator
 
 
+rest_toolkit.abc
+----------------
+
+.. module:: rest_toolkit.abc
+
+.. autoclass:: DeletableResource
+   :members:
+
+.. autoclass:: EditableResource
+   :members:
+
+.. autoclass:: ViewableResource
+   :members:
+
+
 rest_toolkit.ext.sql
 --------------------
 

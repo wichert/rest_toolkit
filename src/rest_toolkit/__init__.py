@@ -3,9 +3,14 @@ from pyramid.config import Configurator
 from pyramid.path import caller_package
 from pyramid.path import package_path
 import venusian
+from .abc import DeletableResource
+from .abc import ViewableResource
 from .state import RestState
 from .views import unsupported_method_view
+from .views import default_delete_view
+from .views import default_get_view
 from .views import default_options_view
+from .views import default_put_view
 
 
 METHODS = ['DELETE', 'GET', 'OPTIONS', 'PATCH', 'POST', 'PUT']
@@ -46,6 +51,7 @@ class ViewDecorator(BaseDecorator):
         config.add_view(view,
                 route_name=route_name,
                 request_method=self.request_method,
+                context=self.state.resource_class,
                 **self.view_arguments)
 
 
@@ -82,6 +88,7 @@ class ControllerDecorator(BaseDecorator):
         config.add_view(view,
                 route_name=route_name,
                 request_method='POST',
+                context=self.state.resource_class,
                 **self.view_arguments)
 
 
@@ -116,6 +123,14 @@ class resource(BaseDecorator):
         config.add_view(default_options_view, route_name=route_name,
                 request_method='OPTIONS')
         config.add_view(unsupported_method_view, route_name=route_name)
+        for (method, base_class, view) in [
+                ('DELETE', DeletableResource, default_delete_view),
+                ('GET', ViewableResource, default_get_view)]:
+            config.add_view(view,
+                    route_name=route_name,
+                    context=base_class,
+                    renderer='json',
+                    request_method=method)
 
     def __call__(self, cls):
         state = RestState.add_to_resource(cls, self.route_path)

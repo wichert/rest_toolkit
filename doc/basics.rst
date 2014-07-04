@@ -6,7 +6,7 @@ Defining a resource
 
 .. code-block:: python
 
-   from pyramid_rest import Resource
+   from rest_toolkit import resource
    from .models import DBSession
    from .models import Event
    
@@ -51,6 +51,36 @@ that they handle a specific HTTP method.
 If a browser sends a ``GET`` request for ``/events/12`` an instance of the
 ``EventResource`` class is created, and its `view` method is called to
 generate a response.
+
+
+Default views
+-------------
+
+If your resource class meets certain requirements rest_toolkit will provide
+default views. For example if your resource class is derived from
+:py:class:`rest_toolkit.abc.ViewableResource` and implements the `to_dict`
+method you automatically get a `GET` view which returns the data returned
+by that method.
+
+.. code-block:: python
+
+   from rest_toolkit import resource
+   from rest_toolkit.abc import ViewableResource
+   from .models import DBSession
+   from .models import Event
+   
+   
+   @resource('/events/{id:\d+}')
+   class EventResource(ViewableResource):
+       def __init__(self, request):
+           event_id = request.matchdict['id']
+           self.event = DBSession.query(Event).get(event_id)
+           if self.event is None:
+               raise KeyError('Unknown event id')
+
+        def to_dict(self):
+            return {'id': self.event.id,
+                    'title': self.event.title}
 
 
 Adding a controller
