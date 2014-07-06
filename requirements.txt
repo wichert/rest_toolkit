@@ -24,3 +24,4 @@ waitress==0.8.9
 wmctrl==0.1
 zope.deprecation==4.1.1
 zope.interface==4.1.1
+jsonschema==2.3.0

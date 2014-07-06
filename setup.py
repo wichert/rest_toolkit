@@ -12,6 +12,7 @@ tests_require = [
         'pytest',
         'WebTest',
         'mock',
+        'jsonschema',
         ]
 
 

@@ -40,6 +40,15 @@ rest_toolkit.utils
 .. autofunction:: merge
 
 
+rest_toolkit.ext.jsonschema
+---------------------------
+
+.. module:: rest_toolkit.ext.jsonschema
+
+.. autoclass:: JsonSchemaValidationMixin
+   :members:
+
+
 rest_toolkit.ext.sql
 --------------------
 
