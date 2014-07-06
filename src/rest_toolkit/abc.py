@@ -35,7 +35,7 @@ class EditableResource(ViewableResource):
     """
 
     @abc.abstractmethod
-    def validate(self, data):
+    def validate(self, data, partial):
         """Validate new data for the resource.
 
         This method is called to validate data received from a client before it
@@ -43,6 +43,19 @@ class EditableResource(ViewableResource):
 
         :param dict data: data to validate. The data is usually taken directly
             from JSON send by a client.
+        :param bool partial: indicates if data contains the full resource state
+            (as received in a PUT request), or only partial state (as received
+            in a PATCH request). You can reconstruct the full resource state
+            from partial data by using :py:func:`merge
+            <rest_toolkit.utils.merge>` to come data the current state as
+            returned by :py:meth:`to_dict` with `data`.
+
+            .. code-block:: python
+
+               full_state = merge(self.to_dict(), data) if partial else data
+
+        :raises HTTPException: if all further request processing should be aborted
+            and the exception returned directly.
         """
         raise NotImplemented()
 
