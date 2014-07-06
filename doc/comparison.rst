@@ -10,7 +10,7 @@ cornice
   design alternative: a Service has views as external functions or classes,
   while a resource is a class that is the resource and contains all its views
   as methods. resources also add extra magic collection-logic. All in all
-  they seem like a vaguely defined convenience thing that should not be 
+  they seem like a vaguely defined convenience thing that should not be
   (presented as) part of the core framework.
 
 - Cornice does not seem to (conveniently) support a controller resource.

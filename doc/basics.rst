@@ -9,8 +9,8 @@ Defining a resource
    from rest_toolkit import resource
    from .models import DBSession
    from .models import Event
-   
-   
+
+
    @resource('/events/{id:\d+}')
    class EventResource(object):
        def __init__(self, request):
@@ -42,8 +42,8 @@ that they handle a specific HTTP method.
    @EventResource.GET()
    def view(resource, request):
        return {...}
-   
-   
+
+
    @EventResource.PUT()
    def update(resource, request):
        return {...}
@@ -68,8 +68,8 @@ by that method.
    from rest_toolkit.abc import ViewableResource
    from .models import DBSession
    from .models import Event
-   
-   
+
+
    @resource('/events/{id:\d+}')
    class EventResource(ViewableResource):
        def __init__(self, request):

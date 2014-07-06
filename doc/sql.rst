@@ -13,7 +13,7 @@ is done during application initialisation via the ``config`` object:
    config.include('rest_toolkit.ext.sql')
    config.set_sqlalchemy_session_factory(DBSession)
 
-The ``DBSession`` object is the SQLAlchemy session maker. This is usually 
+The ``DBSession`` object is the SQLAlchemy session maker. This is usually
 called ``DBSession`` or ``Sesssion``.
 
 Once you have done this you can use the ``SQLResource`` base class to

@@ -49,37 +49,37 @@ SQL server. The next example shows how you can use SQL data.
    from sqlalchemy.orm import Query
    from pyramid_sqlalchemy import BaseObject
    from pyramid_sqlalchemy import DBSession
-   
-   
+
+
    class User(BaseObject):
        __tablename__ = 'user'
        id = Column(Integer, primary_key=True)
        fullname = Column(String)
-   
-   
+
+
    @resource('/users')
    class UserCollection(object):
        def __init__(self, request):
            pass
-   
-   
+
+
    @UserCollection.GET()
    def list_users(collection, request):
        return {'users': [{'id': user.id,
                           'fullname': user.fullname}
                          for user in DBSession.query(User)]}
-   
-   
+
+
    @resource('/users/{id}')
    class UserResource(SQLResource):
        context_query = Query(User) .filter(User.id == bindparam('id'))
-   
+
 
    @UserResource.GET()
    def show_user(user, request):
        return {'id': user.id, 'fullname': user.fullname}
-   
-   
+
+
    if __name__ == '__main__':
        quick_serve(DBSession)
 

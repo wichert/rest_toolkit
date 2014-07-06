@@ -24,16 +24,16 @@ permission on a view.
    from pyramid.security import Allow
    from pyramid.security import Everyone
    from pyramid_rest import Resource
-   
-   
+
+
    @resource('/events/{id:\d+}')
    class EventResource(Resource):
        ...
-   
+
        def __acl__(self):
            return [(Allow, Everyone, ['read']),
                    (Allow, self.event.owner.id, ['delete', 'update'])]
-   
+
    @EventResource.GET(permission='read')
    def view(self):
        return {...}
