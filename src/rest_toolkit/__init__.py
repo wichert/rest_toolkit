@@ -4,12 +4,14 @@ from pyramid.path import caller_package
 from pyramid.path import package_path
 import venusian
 from .abc import DeletableResource
+from .abc import EditableResource
 from .abc import ViewableResource
 from .state import RestState
 from .views import unsupported_method_view
 from .views import default_delete_view
 from .views import default_get_view
 from .views import default_options_view
+from .views import default_patch_view
 from .views import default_put_view
 
 
@@ -125,7 +127,9 @@ class resource(BaseDecorator):
         config.add_view(unsupported_method_view, route_name=route_name)
         for (method, base_class, view) in [
                 ('DELETE', DeletableResource, default_delete_view),
-                ('GET', ViewableResource, default_get_view)]:
+                ('GET', ViewableResource, default_get_view),
+                ('PATCH', EditableResource, default_patch_view),
+                ('PUT', EditableResource, default_put_view)]:
             config.add_view(view,
                     route_name=route_name,
                     context=base_class,

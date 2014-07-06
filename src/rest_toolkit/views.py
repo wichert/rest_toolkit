@@ -30,10 +30,10 @@ def default_patch_view(resource, request):
     except ValueError:
         request.reponse.status_int = 400
         return {'message': 'No JSON data provided.'}
-    full_data = merge(resource.to_dict(), data)
-    resource.validate(data)
-    resource.update_from_dict(data)
+    resource.validate(data, partial=True)
+    resource.update_from_dict(data, replace=False)
     return resource.to_dict()
+
 
 def default_put_view(resource, request):
     try:
@@ -41,6 +41,6 @@ def default_put_view(resource, request):
     except ValueError:
         request.reponse.status_int = 400
         return {'message': 'No JSON data provided.'}
-    resource.validate(data)
-    resource.update_from_dict(data)
+    resource.validate(data, partial=False)
+    resource.update_from_dict(data, replace=True)
     return resource.to_dict()
