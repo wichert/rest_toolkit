@@ -32,6 +32,14 @@ rest_toolkit.abc
    :members:
 
 
+rest_toolkit.utils
+------------------
+
+.. module:: rest_toolkit.utils
+
+.. autofunction:: merge
+
+
 rest_toolkit.ext.sql
 --------------------
 
