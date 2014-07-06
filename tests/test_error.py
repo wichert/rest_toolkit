@@ -1,4 +1,3 @@
-import pytest
 from webtest import TestApp
 from pyramid.config import Configurator
 

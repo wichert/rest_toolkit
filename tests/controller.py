@@ -10,4 +10,3 @@ class Resource(object):
 @Resource.controller('engage')
 def engage(resource, request):
     return {'message': 'Ai ai captain'}
-
