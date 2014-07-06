@@ -98,8 +98,8 @@ Contents
    sql
    security
    philosophy
-   comparison
    api
+   comparison
    changes
 
 
