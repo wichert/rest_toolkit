@@ -40,6 +40,16 @@ rest_toolkit.utils
 .. autofunction:: merge
 
 
+
+rest_toolkit.ext.colander
+---------------------------
+
+.. module:: rest_toolkit.ext.colander
+
+.. autoclass:: ColanderSchemaValidationMixin
+   :members:
+
+
 rest_toolkit.ext.jsonschema
 ---------------------------
 
