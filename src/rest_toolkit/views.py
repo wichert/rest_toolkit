@@ -24,6 +24,17 @@ def default_get_view(resource, request):
     return resource.to_dict()
 
 
+def default_patch_view(resource, request):
+    try:
+        data = request.json_body
+    except ValueError:
+        request.reponse.status_int = 400
+        return {'message': 'No JSON data provided.'}
+    full_data = merge(resource.to_dict(), data)
+    resource.validate(data)
+    resource.update_from_dict(data)
+    return resource.to_dict()
+
 def default_put_view(resource, request):
     try:
         data = request.json_body
