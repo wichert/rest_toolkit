@@ -57,7 +57,6 @@ class JsonSchemaValidationMixin(object):
                 format_checker=jsonschema.draft4_format_checker)
         except jsonschema.ValidationError as e:
             raise HTTPBadRequest(e.message)
-        return data
 
 
 __all__ = ['JsonSchemaValidationMixin']
