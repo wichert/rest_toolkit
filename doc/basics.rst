@@ -82,6 +82,21 @@ by that method.
             return {'id': self.event.id,
                     'title': self.event.title}
 
+The table below lists the base class you must implement for each
+default view.
+
++--------+------------------------------------------------+
+| Method | Class                                          |
++========+================================================+
+| DELETE | :py:class:`rest_toolkit.abc.DeletableResource` |
++--------+------------------------------------------------+
+| GET    | :py:class:`rest_toolkit.abc.ViewableResource`  |
++--------+------------------------------------------------+
+| PATCH  | :py:class:`rest_toolkit.abc.EditableResource`  |
++--------+------------------------------------------------+
+| PUT    | :py:class:`rest_toolkit.abc.EditableResource`  |
++--------+------------------------------------------------+
+
 
 Adding a controller
 -------------------
