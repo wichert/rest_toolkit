@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.2 - Unreleased
-----------------------------
+0.2 - July 9, 2014
+------------------
 
 - Several demos showing how to use rest_toolkit with AngularJS have been added.
 
