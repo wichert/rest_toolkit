@@ -83,7 +83,8 @@ def includeme(config):
 
        config = Configurator()
        config.include('rest_toolkit')
+       config.include('rest_toolkit.ext.sql')
        config.set_sqlalchemy_session_factory(DBSession)
     """
-    config.add_directory('set_sqlalchemy_session_factory',
+    config.add_directive('set_sqlalchemy_session_factory',
             set_sqlalchemy_session_factory)

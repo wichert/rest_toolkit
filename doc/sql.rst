@@ -10,6 +10,7 @@ is done during application initialisation via the ``config`` object:
    :linenos:
 
    config = Configurator()
+   config.include('rest_toolkit')
    config.include('rest_toolkit.ext.sql')
    config.set_sqlalchemy_session_factory(DBSession)
 
