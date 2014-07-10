@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.2.1 - Unreleased
+0.2.1 - July 10, 2014
 ---------------------
 
 - Add a MANIFEST.in to the source distribution installable.
