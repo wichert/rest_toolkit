@@ -1,2 +1,1 @@
-Changelog
-=========
+doc/changes.rst
