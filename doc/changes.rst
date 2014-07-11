@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.2.3 - Unreleased
----------------------
+0.3 - July 11, 2014
+-------------------
 
 This release fixes several critical errors in the SQL extension:
 
