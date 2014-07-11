@@ -1,7 +1,5 @@
 import abc
 from ..compat import add_metaclass
-from ..abc import DeletableResource
-from ..abc import EditableResource
 from ..abc import ViewableResource
 from sqlalchemy.orm import object_session
 
@@ -9,7 +7,7 @@ _session_factory = None
 
 
 @add_metaclass(abc.ABCMeta)
-class SQLResource(DeletableResource, EditableResource, ViewableResource):
+class SQLResource(ViewableResource):
     """Base class for resources based on SQLAlchemy ORM models.
     """
 

@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.2.3 - Unreleased
+---------------------
+
+- Do not enable default views for SQLResource automatically. This should be
+  an explicit decision by the user.
+
+
 0.2.2 - July 11, 2014
 ---------------------
 

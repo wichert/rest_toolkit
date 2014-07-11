@@ -48,3 +48,49 @@ internally:
    variable of the ``UserResource`` instance. If the SQL query did not return
    any results or returned more than one result a HTTP 404 error will be
    generated directly.
+
+
+Default views
+-------------
+
+SQLResource are prepared to support default views, but they are not
+automatically enabled to prevent accidental data exposure or edit/delete
+functionality.
+
+To enable the default GET view for a SQL resource you only need to add
+:py:class:`ViewableResource <rest_toolkit.abc.ViewableResource>` to the
+list of base classes. SQLResource includes a default `to_dict` method which
+returns a dictionary with all column defined in the SQLAlchemy model used in
+`context_query`, which will be used to generate the response for GET requests.
+
+.. code-block:: python
+
+   from rest_toolkit.abc import ViewableResource
+   from rest_toolkit.ext.sql import SQLResource
+
+   @resource('/users/{id}')
+   class UserResource(SQLResource, ViewableResource):
+       context_query = Query(User) .filter(User.id == bindparam('id'))
+
+There is also a default `delete` method which deletes the SQL object from
+the database. To expose those you can add
+:py:class:`DeletableResource <rest_toolkit.abc.DeletableResource>` to the
+base classes for your resource.
+
+There is also a default implementation of the `update_from_dict` method which
+can be used as part of the 
+:py:class:`EditableResource <rest_toolkit.abc.EditableResource>` interface.
+You must supply an implementation for `validate` yourself.
+
+
+.. code-block:: python
+
+   from rest_toolkit.abc import EditableResource
+   from rest_toolkit.ext.sql import SQLResource
+
+   @resource('/users/{id}')
+   class UserResource(SQLResource, EditableResource):
+       context_query = Query(User) .filter(User.id == bindparam('id'))
+
+       def validate(self, data, partial):
+           # Validate data here
