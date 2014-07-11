@@ -1,7 +1,8 @@
 import abc
+from pyramid.httpexceptions import HTTPNotFound
+from sqlalchemy.orm import object_session
 from ..compat import add_metaclass
 from ..abc import ViewableResource
-from sqlalchemy.orm import object_session
 
 _session_factory = None
 
@@ -24,7 +25,7 @@ class SQLResource(ViewableResource):
         params = request.matchdict
         self.context = _session_factory.execute(self.context_query, params).first()
         if self.context is None:
-            raise KeyError('Resource not found')
+            raise HTTPNotFound('Resource not found')
 
     def to_dict(self):
         data = {}

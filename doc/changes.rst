@@ -4,6 +4,9 @@ Changelog
 0.2.3 - Unreleased
 ---------------------
 
+- Return not-found error from SQLResource instead of an internal error when no
+  SQL row could be found.
+
 - Do not enable default views for SQLResource automatically. This should be
   an explicit decision by the user.
 
