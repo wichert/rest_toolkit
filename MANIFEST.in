@@ -1,4 +1,5 @@
 include *.rst
+include *.txt
 recursive-include tests *.py
 graft doc
 prune doc/_build
