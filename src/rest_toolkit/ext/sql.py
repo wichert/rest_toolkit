@@ -22,8 +22,10 @@ class SQLResource(ViewableResource):
         global _session_factory
         assert _session_factory is not None, \
                 "config.set_sqlalchemy_session_factory must be called."
-        params = request.matchdict
-        self.context = _session_factory.execute(self.context_query, params).first()
+        self.context = self.context_query\
+                .with_session(_session_factory())\
+                .params(request.matchdict)\
+                .first()
         if self.context is None:
             raise HTTPNotFound('Resource not found')
 

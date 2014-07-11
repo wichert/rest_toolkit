@@ -4,6 +4,10 @@ Changelog
 0.2.3 - Unreleased
 ---------------------
 
+This release fixes several critical errors in the SQL extension:
+
+- Fix the invoction of the context query.
+
 - Return not-found error from SQLResource instead of an internal error when no
   SQL row could be found.
 
