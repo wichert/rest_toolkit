@@ -16,6 +16,7 @@ class ColanderSchemaValidationMixin(object):
     <http://colander.readthedocs.org/>`_ for validation.
 
     .. code-block:: python
+       :linenos:
 
        class AccountSchema(colander.Schema):
            email = colander.SchemaNode(colander.String())

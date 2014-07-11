@@ -29,7 +29,7 @@ define your resources.
 
    @resource('/users/{id}')
    class UserResource(SQLResource):
-       context_query = Query(User) .filter(User.id == bindparam('id'))
+       context_query = Query(User).filter(User.id == bindparam('id'))
 
 Line 3 defines the URL path for the resource. This path includes an
 ``id``-variable, which will be used in a SQL query. The query is defined in
@@ -64,13 +64,14 @@ returns a dictionary with all column defined in the SQLAlchemy model used in
 `context_query`, which will be used to generate the response for GET requests.
 
 .. code-block:: python
+   :linenos:
 
    from rest_toolkit.abc import ViewableResource
    from rest_toolkit.ext.sql import SQLResource
 
    @resource('/users/{id}')
    class UserResource(SQLResource, ViewableResource):
-       context_query = Query(User) .filter(User.id == bindparam('id'))
+       context_query = Query(User).filter(User.id == bindparam('id'))
 
 There is also a default `delete` method which deletes the SQL object from
 the database. To expose those you can add
@@ -84,13 +85,14 @@ You must supply an implementation for `validate` yourself.
 
 
 .. code-block:: python
+   :linenos:
 
    from rest_toolkit.abc import EditableResource
    from rest_toolkit.ext.sql import SQLResource
 
    @resource('/users/{id}')
    class UserResource(SQLResource, EditableResource):
-       context_query = Query(User) .filter(User.id == bindparam('id'))
+       context_query = Query(User).filter(User.id == bindparam('id'))
 
        def validate(self, data, partial):
            # Validate data here

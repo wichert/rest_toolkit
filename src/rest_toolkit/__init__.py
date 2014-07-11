@@ -34,6 +34,7 @@ class ViewDecorator(BaseDecorator):
     used.
 
     .. code-block:: python
+       :linenos:
 
        @MyResource.GET()
        def get_view_for_my_resource(resource, request):
@@ -65,6 +66,7 @@ class ControllerDecorator(BaseDecorator):
     :py:func:`resource` decorator is used.
 
     .. code-block:: python
+       :linenos:
 
        @MyResource.controller('frobnicate')
        def frobnicate_my_resource(resource, request):
@@ -100,6 +102,7 @@ class resource(BaseDecorator):
     This decorator must be used to declare REST resources.
 
     .. code-block:: python
+       :linenos:
 
        from rest_toolkit import resource
 
@@ -157,6 +160,7 @@ def includeme(config):
     the REST toolkit.
 
     .. code-block:: python
+       :linenos:
 
        config = Configurator()
        config.include('rest_toolkit')
@@ -179,6 +183,7 @@ def quick_serve(sql_session_factory=None, port=8080):
     this:
 
     .. code-block:: python
+       :linenos:
 
        from pyramid.config import Configurator
        from wsgiref.simple_server import make_server

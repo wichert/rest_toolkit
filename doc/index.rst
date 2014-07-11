@@ -16,6 +16,7 @@ view, and starts a simple HTTP server. If you run this example you can request
 message.
 
 .. code-block:: python
+   :linenos:
 
    from rest_toolkit import quick_serve
    from rest_toolkit import resource
@@ -41,6 +42,7 @@ SQL server. The next example shows how you can use SQL data.
 
 
 .. code-block:: python
+   :linenos:
 
    from rest_toolkit import quick_serve
    from rest_toolkit import resource

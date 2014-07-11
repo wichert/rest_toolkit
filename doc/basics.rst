@@ -5,6 +5,7 @@ Defining a resource
 -------------------
 
 .. code-block:: python
+   :linenos:
 
    from rest_toolkit import resource
    from .models import DBSession
@@ -38,6 +39,7 @@ is done by adding methods and using the ``view`` decorator to inform the system
 that they handle a specific HTTP method.
 
 .. code-block:: python
+   :linenos:
 
    @EventResource.GET()
    def view(resource, request):
@@ -63,6 +65,7 @@ method you automatically get a `GET` view which returns the data returned
 by that method.
 
 .. code-block:: python
+   :linenos:
 
    from rest_toolkit import resource
    from rest_toolkit.abc import ViewableResource
@@ -110,6 +113,7 @@ decorator.
 
 
 .. code-block:: python
+   :linenos:
 
    @EventResource.controller(name='reboot')
    def reboot(resource, request):

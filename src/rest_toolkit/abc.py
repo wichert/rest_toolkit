@@ -51,6 +51,7 @@ class EditableResource(ViewableResource):
             returned by :py:meth:`to_dict` with `data`.
 
             .. code-block:: python
+               :linenos:
 
                full_state = merge(self.to_dict(), data) if partial else data
 

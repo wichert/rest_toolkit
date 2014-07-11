@@ -55,6 +55,7 @@ def set_sqlalchemy_session_factory(config, sql_session_factory):
     ``config`` object.
 
     .. code-block:: python
+       :linenos:
 
        config.set_sqlalchemy_session_factory(DBSession)
 
@@ -81,6 +82,7 @@ def includeme(config):
     SQLALchemy session factory.
 
     .. code-block:: python
+       :linenos:
 
        config = Configurator()
        config.include('rest_toolkit')

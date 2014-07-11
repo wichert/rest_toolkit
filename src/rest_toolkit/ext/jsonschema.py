@@ -16,6 +16,7 @@ class JsonSchemaValidationMixin(object):
     <http://json-schema.org/>`).
 
     .. code-block:: python
+       :linenos:
 
        class Account(EditableResource, JsonSchemaValidationMixin):
            schema = {
