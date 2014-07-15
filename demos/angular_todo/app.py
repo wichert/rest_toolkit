@@ -1,7 +1,15 @@
 from random import randint
 
-from rest_toolkit import quick_serve
-from rest_toolkit import resource
+from rest_toolkit import (
+    quick_serve,
+    resource
+)
+
+from rest_toolkit.abc import (
+    ViewableResource,
+    EditableResource,
+    DeletableResource
+)
 
 todos = {
     "td1": {"id": "td1", "title": "Firstie"},
@@ -21,6 +29,7 @@ class TodoCollection(object):
 def list_todos(collection, request):
     return {"todos": list(todos.values())}
 
+
 @TodoCollection.POST()
 def add_todo(collection, request):
     todo = {
@@ -32,24 +41,25 @@ def add_todo(collection, request):
 
 
 @resource('/todos/{id}')
-class TodoResource(object):
+class TodoResource(EditableResource, ViewableResource, DeletableResource):
     def __init__(self, request):
-        self.data = todos[request.matchdict['id']]
+        todo_id = request.matchdict['id']
+        self.todo = todos.get(todo_id)
+        if self.todo is None:
+            raise KeyError('Unknown event id')
 
+    def to_dict(self):
+        return self.todo
 
-@TodoResource.GET()
-def view_todo(todo, request):
-    return todo.data
+    def update_from_dict(self, data, replace=True):
+        self.todo.title = data.title
+        return {}
 
-@TodoResource.PUT()
-def update_todo(todo, request):
-    todo.data['title'] = request.json_body['title']
-    return {}
+    def validate(self, data, partial):
+        pass
 
-@TodoResource.DELETE()
-def delete_todo(todo, request):
-    del todos[todo.data["id"]]
-    return {}
+    def delete(self):
+        del todos[self.todo["id"]]
 
 
 if __name__ == '__main__':

@@ -13,6 +13,9 @@ TODO
 angular_todo_jwtauth
 ====================
 
+angular_restcontroller
+======================
+
 angular_todo_validation
 =======================
 
