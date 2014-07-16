@@ -25,7 +25,7 @@ class ViewableResource(object):
 
 
 @add_metaclass(abc.ABCMeta)
-class EditableResource(ViewableResource):
+class EditableResource(object):
     """Base class for resources using the default PATCH and PUT views.
 
     If a resource class is derived from this class it must implement the
@@ -57,6 +57,17 @@ class EditableResource(ViewableResource):
 
         :raises HTTPException: if all further request processing should be aborted
             and the exception returned directly.
+        """
+        raise NotImplemented()
+
+    @abc.abstractmethod
+    def to_dict(self):
+        """Generate a (JSON-compatible) dictionary with resource data.
+
+        This method is used by the default GET, PATCH and PUT views to generate
+        the data for the response. It is also used by by the PATCH view
+        to complete the (partial) data provided by a client before validation
+        is done (see :py:class:`EditableResource` for details).
         """
         raise NotImplemented()
 

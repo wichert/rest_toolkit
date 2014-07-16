@@ -4,6 +4,11 @@ Changelog
 0.4 - Unreleased
 -------------------
 
+- Modify EditableResource to not inherit from ViewableResource. This makes
+  the separation between editing and viewing explicit, and works around the
+  inability of Python to handle the inheritance schemes where a base classes 
+  is used multiple times.
+
 - Remove the default value for ``replace`` in
   ``EditableResource.updat_from_dict()``. This did not serve a useful purpose,
   and could be confusing.
