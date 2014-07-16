@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.4 - Unreleased
+-------------------
+
+- Set ``self.request`` in SQLResource constructor.
+
+
 0.3 - July 11, 2014
 -------------------
 

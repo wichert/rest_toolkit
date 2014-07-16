@@ -22,6 +22,7 @@ class SQLResource(ViewableResource):
         global _session_factory
         assert _session_factory is not None, \
                 "config.set_sqlalchemy_session_factory must be called."
+        self.request = request
         self.context = self.context_query\
                 .with_session(_session_factory())\
                 .params(request.matchdict)\
