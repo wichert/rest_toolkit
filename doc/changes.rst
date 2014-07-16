@@ -4,6 +4,10 @@ Changelog
 0.4 - Unreleased
 -------------------
 
+- Remove the default value for ``replace`` in
+  ``EditableResource.updat_from_dict()``. This did not serve a useful purpose,
+  and could be confusing.
+
 - Set ``self.request`` in SQLResource constructor.
 
 

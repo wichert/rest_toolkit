@@ -61,7 +61,7 @@ class EditableResource(ViewableResource):
         raise NotImplemented()
 
     @abc.abstractmethod
-    def update_from_dict(self, data, replace=True):
+    def update_from_dict(self, data, replace):
         """Update a resource.
 
         :param dict data: The data to validate. The data is usually taken
