@@ -29,3 +29,38 @@ stored data. This has several advantages:
 
 * you can easily present the same data in multiple ways.
 
+Request flow
+------------
+
+When processing a request pyramid will go through several steps.
+
+.. graphviz::
+   :alt: Visual overview of the request flow.
+
+   digraph flow {
+       rankdir=LR;
+       node [shape=rounded, style=filled, penwidth=0.5, fontname=Arial, fontsize=12]
+       edge [fontname="Arial:italic", fontsize=11, penwidth=0.5]
+
+       request [label="GET /events/123"]
+       resource [label="EventResource"]
+       view [label="view_event() function"]
+       response [label="JSON response"]
+
+       request -> resource [label="Find resource\nfor /events/1"]
+       resource -> view [label="Find GET view\nfor EventResource"]
+       view -> response [label="Call view_event()"]
+   }
+
+1. When a request comes in the first step is to find a resource class which
+   matches the requested URL.
+2. The constructor for the resource class found in step 1 is called to create
+   the resource instance. The constructor can raise an exception at this step
+   to indicate no resource data could be found, for example if an requested
+   id can not be found in a database.
+3. Try to find a view for the resource and request type. This can either be a
+   :ref:`default view <default-views>` or a view defined via an request method
+   decorator. If no view is found a `HTTP 405 Method Not Allowed` error is
+   returned.
+4. The view is invoked. The data it returns will be converted to JSON and
+   returned to the client.

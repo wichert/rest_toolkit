@@ -31,6 +31,7 @@ import rest_toolkit
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['sphinx.ext.autodoc',
+              'sphinx.ext.graphviz',
               'sphinx.ext.intersphinx']
 
 # Add any paths that contain templates here, relative to this directory.
@@ -266,3 +267,5 @@ intersphinx_mapping = {
     'sqlalchemy': ('http://docs.sqlalchemy.org/en/latest/', None)
     }
 
+
+graphviz_output_format = 'svg'
