@@ -4,6 +4,11 @@ Changelog
 0.4 - Unreleased
 -------------------
 
+This releases focuses on improving the documentation and fixing problems in the
+SQL extension.
+
+- Fix several errors in the SQLResource defaults views.
+
 - Configuring the SQL extension is no longer necessary if you use
   `pyramid_sqlalchemy <https://pyramid-sqlalchemy.readthedocs.org>`_ to handle
   SQLAlchemy integration.

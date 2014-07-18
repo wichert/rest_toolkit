@@ -2,7 +2,6 @@ import abc
 from pyramid.httpexceptions import HTTPNotFound
 from sqlalchemy.orm import object_session
 from ..compat import add_metaclass
-from ..abc import ViewableResource
 
 try:
     from pyramid_sqlalchemy import Session as _session_factory
@@ -10,8 +9,12 @@ except ImportError:  # pragma: noqa
     _session_factory = None
 
 
+def _column_keys(query):
+    return [column.key for column in query._primary_entity.entity_zero.columns]
+
+
 @add_metaclass(abc.ABCMeta)
-class SQLResource(ViewableResource):
+class SQLResource(object):
     """Base class for resources based on SQLAlchemy ORM models.
     """
 
@@ -35,14 +38,12 @@ class SQLResource(ViewableResource):
 
     def to_dict(self):
         data = {}
-        columns = self.context_query._primary_entity.entity_zero.columns
-        for column in columns:
+        for column in _column_keys(self.context_query):
             data[column] = getattr(self.context, column)
         return data
 
     def update_from_dict(self, data, partial=False):
-        columns = self.context_query._primary_entity.entity_zero.columns
-        for column in columns:
+        for column in _column_keys(columns):
             if partial:
                 setattr(self.context, column, data.get(column))
             else:

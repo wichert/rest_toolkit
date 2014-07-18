@@ -100,6 +100,13 @@ returns a dictionary with all column defined in the SQLAlchemy model used in
    class UserResource(SQLResource, ViewableResource):
        context_query = Query(User).filter(User.id == bindparam('id'))
 
+.. warning::
+
+   It is important that when defining your class you list the SQLResource
+   class *before* ViewableResource or any of the other base classes for
+   default views. If you do not do this you will get a Python error on
+   application startup.
+
 There is also a default `delete` method which deletes the SQL object from
 the database. To expose those you can add
 :py:class:`DeletableResource <rest_toolkit.abc.DeletableResource>` to the

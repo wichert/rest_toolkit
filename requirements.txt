@@ -15,11 +15,12 @@ mock==1.0.1
 pdbpp==0.7.2
 py==1.4.20
 pyramid==1.5.1
+pyramid-sqlalchemy==1.1
 pyrepl==0.8.4
 pytest==2.5.2
 repoze.lru==0.6
-rest-toolkit==0.1
 six==1.7.2
+transaction==1.4.3
 translationstring==1.1
 venusian==1.0a8
 waitress==0.8.9
@@ -27,3 +28,4 @@ wmctrl==0.1
 wsgiref==0.1.2
 zope.deprecation==4.1.1
 zope.interface==4.1.1
+zope.sqlalchemy==0.7.5
