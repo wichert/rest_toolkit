@@ -4,7 +4,8 @@ from .state import RestState
 
 
 def unsupported_method_view(resource, request):
-    return HTTPMethodNotAllowed()
+    request.response.status_int = 405
+    return {'message': 'Unsupported HTTP method'}
 
 
 def default_options_view(resource, request):
