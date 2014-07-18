@@ -1,4 +1,5 @@
 from rest_toolkit import resource
+from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPPaymentRequired
 
 
@@ -12,3 +13,9 @@ class KeyErrorResource(object):
 class HTTPErrorResource(object):
     def __init__(self, request):
         raise HTTPPaymentRequired('BOOM!')
+
+
+@resource('/http-not-found')
+class HTTPNotFoundResource(object):
+    def __init__(self, request):
+        raise HTTPNotFound()

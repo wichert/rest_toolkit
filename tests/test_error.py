@@ -28,6 +28,16 @@ def test_resource_constructor_http_exception():
     assert r.json['message'] == 'BOOM!'
 
 
+def test_resource_constructor_raises_notfound():
+    config = Configurator()
+    config.include('rest_toolkit')
+    config.include('pyramid_tm')
+    app = make_app(config)
+    r = app.get('/http-not-found', status=404)
+    assert r.content_type == 'application/json'
+    assert set(r.json) == {'message'}
+
+
 def test_notfound_response():
     config = Configurator()
     config.include('rest_toolkit')
