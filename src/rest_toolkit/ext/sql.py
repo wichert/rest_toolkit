@@ -68,8 +68,8 @@ def set_sqlalchemy_session_factory(config, sql_session_factory):
     exception.
 
     :param sql_session_factory: A factory function to return a SQLAlchemy
-        session. This is generally a :ref:`scoped_session
-        <sqlalchemy:sqlalchemy.orm.scoping.scoped_session>` instance, and
+        session. This is generally a :py:class:`scoped_session
+        <sqlalchemy:sqlalchemy.orm.session.scoped_session>` instance, and
         commonly called ``Session`` or ``DBSession``.
     """
     global _session_factory

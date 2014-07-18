@@ -61,7 +61,7 @@ Once you have done this you can use the :py:class:`SQLResource
 
 Line 4 defines the URL path for the resource. This path includes an
 ``id``-variable, which will be used in a SQL query. The query is defined in
-line 6. This query uses a :ref:`bound expression
+line 6. This query uses a :py:func:`bound expression
 <sqlalchemy:sqlalchemy.sql.expression.bindparam>` to specify where the
 ``id`` request variable must be used.
 

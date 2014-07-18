@@ -195,8 +195,8 @@ def quick_serve(sql_session_factory=None, port=8080):
        make_server('0.0.0.0', 8080, app).serve_forever()
 
     :param sql_session_factory: A factory function to return a SQLAlchemy
-        session. This is generally a :ref:`scoped_session
-        <sqlalchemy:sqlalchemy.orm.scoping.scoped_session>` instance, and
+        session. This is generally a :py:class:`scoped_session
+        <sqlalchemy:sqlalchemy.orm.session.scoped_session>` instance, and
         commonly called ``Session`` or ``DBSession``.
     :param int port: TCP port to use for HTTP server.
     """

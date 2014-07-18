@@ -67,7 +67,7 @@ class EditableResource(object):
         This method is used by the default GET, PATCH and PUT views to generate
         the data for the response. It is also used by by the PATCH view
         to complete the (partial) data provided by a client before validation
-        is done (see :py:class:`EditableResource` for details).
+        is done.
         """
         raise NotImplemented()
 
