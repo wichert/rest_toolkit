@@ -20,12 +20,20 @@ Defining a resource
            if self.event is None:
                raise KeyError('Unknown event id')
 
-As you can see this the `resource` decorator is essentially a convenient way to
-setup configure a route with a context factory. It also does a couple of extra
-things:
+.. sidebar:: Decorators
 
-* It add CORS headers to response.
-* It adds a default handler for ``OPTIONS`` requests which returns an empty
+   `Decorators` are a convenient way to add extra information or modify
+   behaviour of a class or function. rest_toolkit uses decorators to
+   register classes as resources and to configure views. For more information
+   on decorators see the `decorator section of the Python Wikipedia page
+   <http://en.wikipedia.org/wiki/Python_syntax_and_semantics#Decorators>`_.
+
+If you are familiar with Pyramid you may see that the ``resource`` decorator is
+essentially a convenient way to configure a route with a context factory. It
+also does a couple of extra things:
+
+* It add CORS headers to the HTTP response.
+* It adds a default handler for ``OPTIONS`` requests. This will return an empty
   response with CORS headers indicating the supported HTTP methods.
 * It will return a `HTTP 405 Method Not Supported` response for any requests
   using a method for which no view is defined.
@@ -42,17 +50,17 @@ that they handle a specific HTTP method.
    :linenos:
 
    @EventResource.GET()
-   def view(resource, request):
+   def view_event(resource, request):
        return {...}
 
 
    @EventResource.PUT()
-   def update(resource, request):
+   def update_event(resource, request):
        return {...}
 
 If a browser sends a ``GET`` request for ``/events/12`` an instance of the
-``EventResource`` class is created, and its `view` method is called to
-generate a response.
+``EventResource`` class is created, and its ``GET`` view, the ``view_event``
+function in the above example, is called to generate a response.
 
 
 .. _default-views:
