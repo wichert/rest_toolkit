@@ -4,6 +4,9 @@ Changelog
 0.4 - Unreleased
 -------------------
 
+- `Travis <https://travis-ci.org/wichert/pyramid_sqlalchemy>`_ is now setup to
+  automatically run tests on CPython 2.7, CPython 3.3, CPython 3.4 and PyPy.
+
 - Fix Python 3 compatibility problem in the generic error view.
 
 - Drop explicit Python 2.6 support. The tests use too many set literals to make
