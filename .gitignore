@@ -12,4 +12,6 @@
 /include
 /lib
 
+/pyvenv.cfg
+
 .idea
