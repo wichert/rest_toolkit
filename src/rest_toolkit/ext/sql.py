@@ -5,7 +5,7 @@ from ..compat import add_metaclass
 from ..abc import ViewableResource
 
 try:
-    from pyramid_sqlalchemy import as _session_factory
+    from pyramid_sqlalchemy import Session as _session_factory
 except ImportError:  # pragma: noqa
     _session_factory = None
 
