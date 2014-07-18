@@ -10,6 +10,13 @@ def generic(context, request):
         return {'message': 'Unknown error'}
 
 
+def http_error(context, request):
+    request.response.status = context.status
+    if context.message:
+        return {'message': context.message}
+    else:
+        return {'message': context.status}
+
 def notfound(context, request):
     message = 'Resource not found'
     if isinstance(context, HTTPNotFound):

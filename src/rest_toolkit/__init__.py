@@ -1,5 +1,7 @@
 from wsgiref.simple_server import make_server
+from webob.exc import WSGIHTTPException
 from pyramid.config import Configurator
+from pyramid.interfaces import IExceptionResponse
 from pyramid.path import caller_package
 from pyramid.path import package_path
 import venusian
@@ -88,7 +90,7 @@ class ControllerDecorator(BaseDecorator):
         route_name = '%s-%s' % (self.state.route_name(), self.name)
         self.state.add_controller(self.name, view)
         config.add_route(route_name, route_path, factory=self.state.resource_class)
-        config.add_view(unsupported_method_view, route_name=route_name)
+        config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
         config.add_view(view,
                 route_name=route_name,
                 request_method='POST',
@@ -127,7 +129,7 @@ class resource(BaseDecorator):
         config.add_route(route_name, state.route_path, factory=cls)
         config.add_view(default_options_view, route_name=route_name,
                 request_method='OPTIONS')
-        config.add_view(unsupported_method_view, route_name=route_name)
+        config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
         for (method, base_class, view) in [
                 ('DELETE', DeletableResource, default_delete_view),
                 ('GET', ViewableResource, default_get_view),
@@ -166,6 +168,8 @@ def includeme(config):
        config.include('rest_toolkit')
     """
     config.add_view('rest_toolkit.error.generic', context=Exception, renderer='json')
+    config.add_view('rest_toolkit.error.http_error', context=IExceptionResponse, renderer='json')
+    config.add_view('rest_toolkit.error.http_error', context=WSGIHTTPException, renderer='json')
     config.add_notfound_view('rest_toolkit.error.notfound', renderer='json')
     config.add_forbidden_view('rest_toolkit.error.forbidden', renderer='json')
 

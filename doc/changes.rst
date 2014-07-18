@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.5 - Unreleased
+-------------------
+
+- Make sure all raised HTTP exceptions are converted to JSON responses.
+
+
 0.4 - July 18, 2014
 -------------------
 
