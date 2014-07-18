@@ -38,7 +38,7 @@ Defining a resource
 -------------------
 
 Once you have done this you can use the :py:class:`SQLResource
-<rest_toolkit.ext.sql.SQLResource`` class to define your resources.
+<rest_toolkit.ext.sql.SQLResource>` class to define your resources.
 
 .. code-block:: python
    :linenos:
