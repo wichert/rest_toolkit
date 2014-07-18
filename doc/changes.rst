@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.4 - Unreleased
+0.4 - July 18, 2014
 -------------------
 
 This releases focuses on improving the documentation and fixing problems in the
