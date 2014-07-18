@@ -4,6 +4,11 @@ Changelog
 0.4 - Unreleased
 -------------------
 
+- Fix Python 3 compatibility problem in the generic error view.
+
+- Drop explicit Python 2.6 support. The tests use too many set literals to make
+  Python 2.6 worthwile.
+
 - Modify EditableResource to not inherit from ViewableResource. This makes
   the separation between editing and viewing explicit, and works around the
   inability of Python to handle the inheritance schemes where a base classes 

@@ -4,7 +4,11 @@ from pyramid.security import unauthenticated_userid
 
 def generic(context, request):
     request.response.status_int = 500
-    return {'message': context.message}
+    try:
+        return {'message': unicode(message)}
+    except NameError:  # pragma: nocov
+        # Python 3.x has no unicode()
+        return {'message': str(message)}
 
 
 def notfound(context, request):
