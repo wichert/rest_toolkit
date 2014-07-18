@@ -1,3 +1,5 @@
+.. _philosophy-chapter:
+
 Philosphy
 =========
 

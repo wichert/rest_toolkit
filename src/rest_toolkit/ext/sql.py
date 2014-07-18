@@ -4,7 +4,10 @@ from sqlalchemy.orm import object_session
 from ..compat import add_metaclass
 from ..abc import ViewableResource
 
-_session_factory = None
+try:
+    from pyramid_sqlalchemy import as _session_factory
+except ImportError:  # pragma: noqa
+    _session_factory = None
 
 
 @add_metaclass(abc.ABCMeta)

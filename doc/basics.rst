@@ -55,6 +55,8 @@ If a browser sends a ``GET`` request for ``/events/12`` an instance of the
 generate a response.
 
 
+.. _default-views:
+
 Default views
 -------------
 

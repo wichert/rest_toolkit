@@ -2,9 +2,23 @@ SQL support
 ===========
 
 *rest_toolkit* has a SQL-extension that makes it easy to use `SQLAlchemy
-<http://www.sqlalchemy.org/>`_ models in REST resources. To use this you
-will first need to tell rest_toolkit how to get a SQLAlchemy session. This
-is done during application initialisation via the ``config`` object:
+<http://www.sqlalchemy.org/>`_ models in your REST application. 
+
+In line with rest_toolkit's :ref:`philosophy <philosophy-chapter>` a
+SQLAlchemy model is not used directly as a resource. Instead a
+`SQLResource` class is used which wraps a SQL model. This resource
+class can define things like the :ref:`ACLs <pyramid:assigning_acls>`
+and methods needed for :ref:`default views <default-views>`.
+
+
+Setup
+-----
+
+The toolkit assumes you are using `pyramid_sqlalchemy
+<https://pyramid-sqlalchemy.readthedocs.org>`_ to handle the SQLAlchemy
+integration. If you do not use pyramid_sqlalchemy you will need to point the
+SQL extension to your session factory. This is done during application
+initialisation via the ``config`` object:
 
 .. code-block:: python
    :linenos:
@@ -15,10 +29,14 @@ is done during application initialisation via the ``config`` object:
    config.set_sqlalchemy_session_factory(DBSession)
 
 The ``DBSession`` object is the SQLAlchemy session maker. This is usually
-called ``DBSession`` or ``Sesssion``.
+called ``DBSession`` or ``Sesssion``. Again, this is only necessary if you
+do not use pyramid_sqlalchemy.
 
-Once you have done this you can use the ``SQLResource`` base class to
-define your resources.
+Defining a resource
+-------------------
+
+Once you have done this you can use the :py:class:`SQLResource
+<rest_toolkit.ext.sql.SQLResource`` class to define your resources.
 
 .. code-block:: python
    :linenos:
@@ -27,15 +45,23 @@ define your resources.
    from sqlalchemy.orm import Query
    from rest_toolkit.ext.sql import SQLResource
 
+   
    @resource('/users/{id}')
    class UserResource(SQLResource):
        context_query = Query(User).filter(User.id == bindparam('id'))
 
-Line 3 defines the URL path for the resource. This path includes an
+
+   @UserResource.GET()
+   def view_user(resource, request):
+       user = resource.context  # Get the SQLAlchemy model from the resource
+       return {'id': user.id,
+               'name': user.full_name}
+
+Line 4 defines the URL path for the resource. This path includes an
 ``id``-variable, which will be used in a SQL query. The query is defined in
-line 5. This query uses a :ref:`bound expression
+line 6. This query uses a :ref:`bound expression
 <sqlalchemy:sqlalchemy.sql.expression.bindparam>` to specify where the
-request variable the id must be used.
+``id`` request variable must be used.
 
 When a request comes in for ``/users/123`` a number of things will happen
 internally:
@@ -53,9 +79,8 @@ internally:
 Default views
 -------------
 
-SQLResource are prepared to support default views, but they are not
-automatically enabled to prevent accidental data exposure or edit/delete
-functionality.
+SQLResource support default views, but does automatically enable them to
+prevent accidental data exposure or edit/delete functionality.
 
 To enable the default GET view for a SQL resource you only need to add
 :py:class:`ViewableResource <rest_toolkit.abc.ViewableResource>` to the
