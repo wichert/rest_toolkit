@@ -15,6 +15,7 @@ tests_require = [
         'colander',
         'jsonschema',
         'pyramid_sqlalchemy',
+        'pyramid_tm',
         ]
 
 
