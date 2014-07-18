@@ -45,7 +45,7 @@ def test_request_override_renderer():
     app = make_app(config)
     r = app.get('/')
     assert r.content_type == 'text/plain'
-    assert r.body == 'hello'
+    assert r.unicode_body == 'hello'
 
 
 def test_add_controller():
