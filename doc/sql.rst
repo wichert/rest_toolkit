@@ -4,11 +4,12 @@ SQL support
 *rest_toolkit* has a SQL-extension that makes it easy to use `SQLAlchemy
 <http://www.sqlalchemy.org/>`_ models in your REST application. 
 
-In line with rest_toolkit's :ref:`philosophy <philosophy-chapter>` a
-SQLAlchemy model is not used directly as a resource. Instead a
-`SQLResource` class is used which wraps a SQL model. This resource
-class can define things like the :ref:`ACLs <pyramid:assigning_acls>`
-and methods needed for :ref:`default views <default-views>`.
+In line with rest_toolkit's :ref:`philosophy <philosophy-chapter>` a SQLAlchemy
+model is not used directly as a resource. Instead a `SQLResource` class is used
+which wraps a SQL model. This resource class can define things like the
+:ref:`ACLs <pyramid:assigning_acls>` and methods needed for :ref:`default views
+<default-views>`. This keeps a clean separation between the data model and
+related business logic and the frontend.
 
 
 Setup
@@ -31,6 +32,7 @@ initialisation via the ``config`` object:
 The ``DBSession`` object is the SQLAlchemy session maker. This is usually
 called ``DBSession`` or ``Sesssion``. Again, this is only necessary if you
 do not use pyramid_sqlalchemy.
+
 
 Defining a resource
 -------------------

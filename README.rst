@@ -23,6 +23,7 @@ message.
        def __init__(self, request):
            pass
 
+
    @Root.GET()
    def show_root(root, request):
        return {'status': 'OK'}

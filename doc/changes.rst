@@ -4,6 +4,10 @@ Changelog
 0.4 - Unreleased
 -------------------
 
+- Configuring the SQL extension is no longer necessary if you use
+  `pyramid_sqlalchemy <https://pyramid-sqlalchemy.readthedocs.org>`_ to handle
+  SQLAlchemy integration.
+
 - `Travis <https://travis-ci.org/wichert/pyramid_sqlalchemy>`_ is now setup to
   automatically run tests on CPython 2.7, CPython 3.3, CPython 3.4 and PyPy.
 
