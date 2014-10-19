@@ -51,7 +51,7 @@ class ViewDecorator(BaseDecorator):
 
     def callback(self, scanner, name, view):
         config = scanner.config.with_package(self.module)
-        route_name = self.state.route_name()
+        route_name = self.state.route_name
         self.state.add_method(self.request_method, view)
         config.add_view(view,
                 route_name=route_name,
@@ -87,7 +87,7 @@ class ControllerDecorator(BaseDecorator):
         route_path = ''.join([self.state.route_path,
                               '' if self.state.route_path.endswith('/') else '',
                               self.name])
-        route_name = '%s-%s' % (self.state.route_name(), self.name)
+        route_name = '%s-%s' % (self.state.route_name, self.name)
         self.state.add_controller(self.name, view)
         config.add_route(route_name, route_path, factory=self.state.resource_class)
         config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
