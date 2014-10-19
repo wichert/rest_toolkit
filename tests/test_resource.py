@@ -1,6 +1,7 @@
 import pytest
 from webtest import TestApp
 from pyramid.config import Configurator
+from pyramid.testing import DummyRequest
 
 
 def make_app(config):
@@ -86,3 +87,12 @@ def test_override_default_view():
     app = make_app(config)
     r = app.get('/')
     assert r.json == {'message': 'Welcome'}
+
+
+def test_set_resource_route_name():
+    config = Configurator()
+    config.scan('resource_route_name')
+    config.make_wsgi_app()
+    request = DummyRequest()
+    request.registry = config.registry
+    assert request.route_path('user', id=15) == '/users/15'

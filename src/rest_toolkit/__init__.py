@@ -118,31 +118,37 @@ class resource(BaseDecorator):
 
        For more information on route patterns please see the :ref:`Pyramid
        route pattern syntax <pyramid:route_pattern_syntax>` documentation.
+
+    :param route_name: The name to use for the route.
+
+       This may be needed if you want to generate URLs to resources using
+       request.route_url().
+
     """
-    def __init__(self, pattern):
-        self.route_path = pattern
+    def __init__(self, route_path, route_name=None):
+        self.route_path = route_path
+        self.route_name = route_name
 
     def callback(self, scanner, name, cls):
         state = RestState.from_resource(cls)
         config = scanner.config.with_package(self.module)
-        route_name = state.route_name()
-        config.add_route(route_name, state.route_path, factory=cls)
-        config.add_view(default_options_view, route_name=route_name,
+        config.add_route(state.route_name, state.route_path, factory=cls)
+        config.add_view(default_options_view, route_name=state.route_name,
                 request_method='OPTIONS')
-        config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
+        config.add_view(unsupported_method_view, route_name=state.route_name, renderer='json')
         for (method, base_class, view) in [
                 ('DELETE', DeletableResource, default_delete_view),
                 ('GET', ViewableResource, default_get_view),
                 ('PATCH', EditableResource, default_patch_view),
                 ('PUT', EditableResource, default_put_view)]:
             config.add_view(view,
-                    route_name=route_name,
+                    route_name=state.route_name,
                     context=base_class,
                     renderer='json',
                     request_method=method)
 
     def __call__(self, cls):
-        state = RestState.add_to_resource(cls, self.route_path)
+        state = RestState.add_to_resource(cls, self.route_path, self.route_name)
         for method in METHODS:
             setattr(cls, method, type('ViewDecorator%s' % method,
                                       (ViewDecorator, object),

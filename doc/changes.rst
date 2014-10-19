@@ -9,6 +9,9 @@ Changelog
 - Preserve headers when converting a HTTP response to JSON. This fixes
   `issue 6 <https://github.com/wichert/rest_toolkit/issues/6>`).
 
+- The route name for a resource can now be configured with a ``route_name`` parameter
+  for the ``resource`` decorator.
+
 
 0.4.1 - July 18, 2014
 ---------------------
