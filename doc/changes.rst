@@ -6,6 +6,9 @@ Changelog
 
 - Rely on fixtures provided by pyramid_sqlalchemy for our SQL-related tests.
 
+- Preserve headers when converting a HTTP response to JSON. This fixes
+  `issue 6 <https://github.com/wichert/rest_toolkit/issues/6>`).
+
 
 0.4.1 - July 18, 2014
 ---------------------

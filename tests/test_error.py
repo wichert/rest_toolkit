@@ -47,6 +47,17 @@ def test_notfound_response():
     assert set(r.json) == {'message'}
 
 
+def test_found_exception():
+    config = Configurator()
+    config.include('rest_toolkit')
+    config.scan('resource_error')
+    app = make_app(config)
+    r = app.get('/http-found', status=302)
+    assert r.headers['Location'] == 'http://www.wiggy.net'
+    assert r.content_type == 'application/json'
+    assert set(r.json) == {'message'}
+
+
 def test_method_not_allowed():
     config = Configurator()
     config.include('rest_toolkit')

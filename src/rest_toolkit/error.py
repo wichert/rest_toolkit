@@ -12,10 +12,15 @@ def generic(context, request):
 
 def http_error(context, request):
     request.response.status = context.status
+    for (header, value) in context.headers.items():
+        if header in {'Content-Type', 'Content-Length'}:
+            continue
+        request.response.headers[header] = value
     if context.message:
         return {'message': context.message}
     else:
         return {'message': context.status}
+
 
 def notfound(context, request):
     message = 'Resource not found'
