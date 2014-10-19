@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.5 - Unreleased
+---------------------
+
+- Rely on fixtures provided by pyramid_sqlalchemy for our SQL-related tests.
+
+
 0.4.1 - July 18, 2014
 ---------------------
 

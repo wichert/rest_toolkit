@@ -14,7 +14,7 @@ tests_require = [
         'mock',
         'colander',
         'jsonschema',
-        'pyramid_sqlalchemy',
+        'pyramid_sqlalchemy >=1.2',
         'pyramid_tm',
         ]
 

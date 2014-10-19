@@ -9,7 +9,7 @@ def make_app(config):
     return TestApp(config.make_wsgi_app())
 
 
-@pytest.mark.usefixtures('sqlalchemy')
+@pytest.mark.usefixtures('sql_session')
 def test_unknown_id():
     config = Configurator()
     config.include('rest_toolkit')
@@ -18,7 +18,7 @@ def test_unknown_id():
     r = app.get('/balloons/1', status=404)
 
 
-@pytest.mark.usefixtures('sqlalchemy')
+@pytest.mark.usefixtures('sql_session')
 def test_known_id():
     balloon = BalloonModel(figure=u'Giraffe')
     Session.add(balloon)
