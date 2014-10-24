@@ -4,10 +4,14 @@ Changelog
 0.5 - Unreleased
 ---------------------
 
+- Add ``read_permission``, ``update_permission`` and ``delete_permission`` options
+  to the ``resource`` decorator to set permissions for default views. This fixes
+  `issue 8 <https://github.com/wichert/rest_toolkit/issues/8>`_.
+
 - Rely on fixtures provided by pyramid_sqlalchemy for our SQL-related tests.
 
 - Preserve headers when converting a HTTP response to JSON. This fixes
-  `issue 6 <https://github.com/wichert/rest_toolkit/issues/6>`).
+  `issue 6 <https://github.com/wichert/rest_toolkit/issues/6>`_.
 
 - The route name for a resource can now be configured with a ``route_name`` parameter
   for the ``resource`` decorator.

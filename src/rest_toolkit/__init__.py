@@ -125,9 +125,13 @@ class resource(BaseDecorator):
        request.route_url().
 
     """
-    def __init__(self, route_path, route_name=None):
+    def __init__(self, route_path, route_name=None, read_permission=None,
+            update_permission=None, delete_permission=None):
         self.route_path = route_path
         self.route_name = route_name
+        self.read_permission = read_permission
+        self.update_permission = update_permission
+        self.delete_permission = delete_permission
 
     def callback(self, scanner, name, cls):
         state = RestState.from_resource(cls)
@@ -136,16 +140,17 @@ class resource(BaseDecorator):
         config.add_view(default_options_view, route_name=state.route_name,
                 request_method='OPTIONS')
         config.add_view(unsupported_method_view, route_name=state.route_name, renderer='json')
-        for (method, base_class, view) in [
-                ('DELETE', DeletableResource, default_delete_view),
-                ('GET', ViewableResource, default_get_view),
-                ('PATCH', EditableResource, default_patch_view),
-                ('PUT', EditableResource, default_put_view)]:
+        for (method, base_class, view, permission) in [
+                ('DELETE', DeletableResource, default_delete_view, self.delete_permission),
+                ('GET', ViewableResource, default_get_view, self.read_permission),
+                ('PATCH', EditableResource, default_patch_view, self.update_permission),
+                ('PUT', EditableResource, default_put_view, self.update_permission)]:
             config.add_view(view,
                     route_name=state.route_name,
                     context=base_class,
                     renderer='json',
-                    request_method=method)
+                    request_method=method,
+                    permission=permission)
 
     def __call__(self, cls):
         state = RestState.add_to_resource(cls, self.route_path, self.route_name)

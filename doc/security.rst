@@ -43,3 +43,20 @@ This example above uses a method to define the ACL in lines 10-12. The ACL does
 two things: it specifies that everyone has `read`-permissions, and the owner
 of the event also has `delete` and `update` permissions. The ``GET`` view
 is the configured to require the read-permission in line 14.
+
+If you use the default views for DELETE, GET, PATCH or PUT provided by
+rest_toolkit you can set their permissions using the ``read_permission``,
+``update_permission`` and ``delete_permission`` arguments to the
+``resource()`` constructor.
+
+.. code-block:: python
+   :linenos:
+
+   from rest_toolkit import resource
+   from rest_toolkit.abc import ViewableResource
+
+
+   @resource('/events/{id:\d+}', read_permission='read')
+   class EventResource(ViewableResource):
+       def __acl__(self):
+           return [(Allow, Everyone, ['read'])]

@@ -2,7 +2,8 @@ import pytest
 from webtest import TestApp
 from pyramid.config import Configurator
 from pyramid.testing import DummyRequest
-
+from pyramid.authorization import ACLAuthorizationPolicy
+from pyramid.authentication import AuthTktAuthenticationPolicy
 
 def make_app(config):
     return TestApp(config.make_wsgi_app())
@@ -96,3 +97,20 @@ def test_set_resource_route_name():
     request = DummyRequest()
     request.registry = config.registry
     assert request.route_path('user', id=15) == '/users/15'
+
+
+def test_secured_default_view_not_allowed():
+    config = Configurator()
+    config.set_authentication_policy(AuthTktAuthenticationPolicy('seekrit'))
+    config.set_authorization_policy(ACLAuthorizationPolicy())
+    config.scan('resource_abc')
+    app = make_app(config)
+    app.get('/secure', status=403)
+
+
+def test_secured_default_view_not_allowed():
+    config = Configurator()
+    config.testing_securitypolicy(1)
+    config.scan('resource_abc')
+    app = make_app(config)
+    app.get('/secure')
