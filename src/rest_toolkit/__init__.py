@@ -124,6 +124,32 @@ class resource(BaseDecorator):
        This may be needed if you want to generate URLs to resources using
        request.route_url().
 
+    :param read_permission: Permission for the default read view.
+
+       If no read permission is specified all users, including anonymous
+       visitors, are allowed to issue GET requests for the resource.
+
+       This permission is only applied to the default GET view. If you specify
+       a custom GET view you need to specify the permission in the ``GET``
+       decorator call.
+
+    :param update_permission: Permission for default update views.
+
+       If no update permission is specified all users, including anonymous
+       visitors, are allowed to issue PATCH and PUT requests for the resource.
+
+       This permission is only applied to the default views. If you specify
+       a custom PATCH or PUT view you need to specify the permission in the
+       decorator call.
+
+    :param delete_permission: Permission for the default delete view.
+
+       If no delete permission is specified all users, including anonymous
+       visitors, are allowed to issue DELETE requests for the resource.
+
+       This permission is only applied to the default DELETE view. If you
+       specify a custom DELETE view you need to specify the permission in the
+       ``DELETE`` decorator call.
     """
     def __init__(self, route_path, route_name=None, read_permission=None,
             update_permission=None, delete_permission=None):
