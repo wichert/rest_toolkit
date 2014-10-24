@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.5 - Unreleased
----------------------
+0.5 - October 24, 2014
+----------------------
 
 - Allow overriding the request method for controllers. This fixes
   `issue 10 <https://github.com/wichert/rest_toolkit/issues/10>`_.
