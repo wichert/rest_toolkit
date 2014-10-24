@@ -77,10 +77,19 @@ class ControllerDecorator(BaseDecorator):
    """
     default_arguments = {'renderer': 'json'}
 
-    def __init__(self, name, **kw):
+    def __init__(self, name, method='POST', **kw):
         self.name = name
+        self.method = method
         self.view_arguments = self.default_arguments.copy()
         self.view_arguments.update(kw)
+
+    def _must_register_route(self, config, route_name):
+        registered = getattr(config.registry, '_rest_controllers', None)
+        if registered is None:
+            registered = config.registry._rest_controllers = set()
+        new = route_name in registered
+        registered.add(route_name)
+        return new
 
     def callback(self, scanner, name, view):
         config = scanner.config.with_package(self.module)
@@ -88,12 +97,13 @@ class ControllerDecorator(BaseDecorator):
                               '' if self.state.route_path.endswith('/') else '',
                               self.name])
         route_name = '%s-%s' % (self.state.route_name, self.name)
-        self.state.add_controller(self.name, view)
-        config.add_route(route_name, route_path, factory=self.state.resource_class)
-        config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
+        self.state.add_controller(self.name, view, self.method)
+        if not self._must_register_route(config, route_name):
+            config.add_route(route_name, route_path, factory=self.state.resource_class)
+            config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
         config.add_view(view,
                 route_name=route_name,
-                request_method='POST',
+                request_method=self.method,
                 context=self.state.resource_class,
                 **self.view_arguments)
 

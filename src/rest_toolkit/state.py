@@ -12,8 +12,8 @@ class RestState(object):
     def add_method(self, method, view):
         self.views[method] = view
 
-    def add_controller(self, name, view):
-        self.controllers[name] = view
+    def add_controller(self, name, view, method):
+        self.controllers[(name, method)] = view
 
     @classmethod
     def add_to_resource(cls, resource_class, route_path, route_name):

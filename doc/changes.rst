@@ -4,6 +4,9 @@ Changelog
 0.5 - Unreleased
 ---------------------
 
+- Allow overriding the request method for controllers. This fixes
+  `issue 10 <https://github.com/wichert/rest_toolkit/issues/10>`_.
+
 - Add ``read_permission``, ``update_permission`` and ``delete_permission`` options
   to the ``resource`` decorator to set permissions for default views. This fixes
   `issue 8 <https://github.com/wichert/rest_toolkit/issues/8>`_.

@@ -143,3 +143,19 @@ decorator.
 
 If you send a ``POST`` to ``/servers/47/reboot`` an instance of the ``Server``
 resource will be created, and its ``reboot`` method will be called.
+
+Controllers normally only respond to ``POST`` requests. You can use the
+``request_method`` option to respond to different request method. You can
+also use the controller decorator multiple times to registered separate views
+for each request method.
+
+.. code-block:: python
+   :linenos:
+
+   @EventResource.controller(name='lockdown')
+   def lockdown(resource, request):
+       return {...}
+
+   @EventResource.controller(name='lockdown', request_method='GET')
+   def is_locked_down(resource, request):
+       return {...}

@@ -66,6 +66,14 @@ def test_controller_default_to_json_renderer():
     assert r.json == {'message': 'Ai ai captain'}
 
 
+def test_set_controller_method():
+    config = Configurator()
+    config.scan('controller')
+    app = make_app(config)
+    r = app.get('/engage')
+    assert r.json == {'message': 'Warp engine offline'}
+
+
 @pytest.mark.parametrize('method', ['delete', 'get', 'patch', 'put'])
 def test_controller_invalid_method(method):
     config = Configurator()
