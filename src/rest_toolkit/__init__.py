@@ -77,9 +77,9 @@ class ControllerDecorator(BaseDecorator):
    """
     default_arguments = {'renderer': 'json'}
 
-    def __init__(self, name, method='POST', **kw):
+    def __init__(self, name, request_method='POST', **kw):
         self.name = name
-        self.method = method
+        self.request_method = request_method
         self.view_arguments = self.default_arguments.copy()
         self.view_arguments.update(kw)
 
@@ -97,13 +97,13 @@ class ControllerDecorator(BaseDecorator):
                               '' if self.state.route_path.endswith('/') else '',
                               self.name])
         route_name = '%s-%s' % (self.state.route_name, self.name)
-        self.state.add_controller(self.name, view, self.method)
+        self.state.add_controller(self.name, view, self.request_method)
         if not self._must_register_route(config, route_name):
             config.add_route(route_name, route_path, factory=self.state.resource_class)
             config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
         config.add_view(view,
                 route_name=route_name,
-                request_method=self.method,
+                request_method=self.request_method,
                 context=self.state.resource_class,
                 **self.view_arguments)
 
@@ -176,7 +176,7 @@ class resource(BaseDecorator):
         config.add_view(default_options_view, route_name=state.route_name,
                 request_method='OPTIONS')
         config.add_view(unsupported_method_view, route_name=state.route_name, renderer='json')
-        for (method, base_class, view, permission) in [
+        for (request_method, base_class, view, permission) in [
                 ('DELETE', DeletableResource, default_delete_view, self.delete_permission),
                 ('GET', ViewableResource, default_get_view, self.read_permission),
                 ('PATCH', EditableResource, default_patch_view, self.update_permission),
@@ -185,7 +185,7 @@ class resource(BaseDecorator):
                     route_name=state.route_name,
                     context=base_class,
                     renderer='json',
-                    request_method=method,
+                    request_method=request_method,
                     permission=permission)
 
     def __call__(self, cls):

@@ -12,6 +12,6 @@ def engage(resource, request):
     return {'message': 'Ai ai captain'}
 
 
-@Resource.controller('engage', method='GET')
+@Resource.controller('engage', request_method='GET')
 def get_engage(resource, request):
     return {'message': 'Warp engine offline'}

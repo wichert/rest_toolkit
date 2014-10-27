@@ -5,7 +5,7 @@ Defining a resource
 -------------------
 
 Defining a resource is a simple two-step process: define a class for the
-resource, and then register it with rest_toolkit using the ``reseource``
+resource, and then register it with rest_toolkit using the ``resource``
 decorator.
 
 .. sidebar:: Decorators
