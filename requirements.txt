@@ -2,8 +2,9 @@ Jinja2==2.7.3
 MarkupSafe==0.23
 PasteDeploy==1.5.2
 Pygments==1.6
-SQLAlchemy==0.9.7
+SQLAlchemy==0.9.8
 Sphinx==1.2.2
+WTForms==2.0.1
 WebOb==1.4
 WebTest==2.0.15
 beautifulsoup4==4.3.2
