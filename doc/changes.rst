@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.6 - Unreleased
+0.6 - November 4, 2014
 ----------------------
 
 - Make sure controllers for resource whose path do not end in a slash are
