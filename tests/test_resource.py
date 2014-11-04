@@ -5,6 +5,7 @@ from pyramid.testing import DummyRequest
 from pyramid.authorization import ACLAuthorizationPolicy
 from pyramid.authentication import AuthTktAuthenticationPolicy
 
+
 def make_app(config):
     return TestApp(config.make_wsgi_app())
 
@@ -124,7 +125,7 @@ def test_secured_default_view_not_allowed():
     app.get('/secure', status=403)
 
 
-def test_secured_default_view_not_allowed():
+def test_secured_default_view_allowed():
     config = Configurator()
     config.testing_securitypolicy(1)
     config.scan('resource_abc')
