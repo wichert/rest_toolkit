@@ -57,6 +57,14 @@ def test_add_controller():
     app.post('/engage')
 
 
+def test_nested_controller():
+    # Test for https://github.com/wichert/rest_toolkit/issues/12
+    config = Configurator()
+    config.scan('controller')
+    app = make_app(config)
+    app.post('/resource/engage')
+
+
 def test_controller_default_to_json_renderer():
     config = Configurator()
     config.scan('controller')

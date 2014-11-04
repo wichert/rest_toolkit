@@ -4,6 +4,10 @@ Changelog
 0.6 - Unreleased
 ----------------------
 
+- Make sure controllers for resource whose path do not end in a slash are
+  reachable.  This fixes `issue 12
+  <https://github.com/wichert/rest_toolkit/issues/12>`_.
+
 - Fix mismatch between code and documentation: use ``request_method``
   as parameter name for the ``controller`` decorator.
 

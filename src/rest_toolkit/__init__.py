@@ -94,7 +94,7 @@ class ControllerDecorator(BaseDecorator):
     def callback(self, scanner, name, view):
         config = scanner.config.with_package(self.module)
         route_path = ''.join([self.state.route_path,
-                              '' if self.state.route_path.endswith('/') else '',
+                              '' if self.state.route_path.endswith('/') else '/',
                               self.name])
         route_name = '%s-%s' % (self.state.route_name, self.name)
         self.state.add_controller(self.name, view, self.request_method)
