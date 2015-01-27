@@ -27,7 +27,7 @@ class JsonSchemaValidationMixin(object):
                            'type': 'string',
                            'format': 'email',
                         },
-                        'password'': {
+                        'password': {
                             'type': 'string',
                             'minLength': 1,
                         },
