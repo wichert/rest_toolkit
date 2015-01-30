@@ -45,7 +45,7 @@ class JsonSchemaValidationMixin(object):
     def schema(self):
         """JSON schema.
 
-        This attribute must contain s valid JSON schema. This will be used by
+        This attribute must contain a valid JSON schema. This will be used by
         :py:meth:`validate` to validate submitted data.
         """
         raise NotImplemented()

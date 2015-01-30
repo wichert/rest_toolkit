@@ -30,7 +30,7 @@ class ColanderSchemaValidationMixin(object):
 
     @abc.abstractproperty
     def schema(self):
-        """Colander schema class
+        """Colander schema class.
         """
         raise NotImplemented()
 

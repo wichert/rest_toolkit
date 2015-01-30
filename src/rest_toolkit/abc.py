@@ -47,7 +47,7 @@ class EditableResource(object):
             (as received in a PUT request), or only partial state (as received
             in a PATCH request). You can reconstruct the full resource state
             from partial data by using :py:func:`merge
-            <rest_toolkit.utils.merge>` to come data the current state as
+            <rest_toolkit.utils.merge>` to combine data the current state as
             returned by :py:meth:`to_dict` with `data`.
 
             .. code-block:: python
