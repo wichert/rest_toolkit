@@ -6,6 +6,24 @@ from ..compat import add_metaclass
 from ..utils import merge
 
 
+def validate(data, schema):
+    """Validate data against a JSON schema.
+
+    This is a helper function used by :py:class:`JsonSchemaValidationMixin`
+    to validate data against a JSON schema. If validation fails this function
+    will raise a :py:class:`pyramid.httpexceptions.HTTPBadRequest` exception
+    describing the validation error.
+
+    :raises pyramid.httpexceptions.HTTPBadRequest: if validation fails this
+        exception is raised to abort any further processing.
+    """
+    try:
+        jsonschema.validate(data, self.schema,
+            format_checker=jsonschema.draft4_format_checker)
+    except jsonschema.ValidationError as e:
+        raise HTTPBadRequest(e.message)
+
+
 @add_metaclass(abc.ABCMeta)
 class JsonSchemaValidationMixin(object):
     """Mix-in class to add JSON schema validation to a resource.
@@ -53,11 +71,7 @@ class JsonSchemaValidationMixin(object):
     def validate(self, data, partial=False):
         if partial:
             data = merge(self.to_dict(), data)
-        try:
-            jsonschema.validate(data, self.schema,
-                format_checker=jsonschema.draft4_format_checker)
-        except jsonschema.ValidationError as e:
-            raise HTTPBadRequest(e.message)
+        validate(data, self.schema)
 
 
-__all__ = ['JsonSchemaValidationMixin']
+__all__ = ['JsonSchemaValidationMixin', 'validate']

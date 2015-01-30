@@ -6,6 +6,24 @@ from ..compat import add_metaclass
 from ..utils import merge
 
 
+def validate(data, schema):
+    """Validate data against a Colander schema class.
+
+    This is a helper function used by :py:class:`ColanderSchemaValidationMixin`
+    to validate data against a Colander schema. If validation fails this function
+    will raise a :py:class:`pyramid.httpexceptions.HTTPBadRequest` exception
+    describing the validation error.
+
+    :raises pyramid.httpexceptions.HTTPBadRequest: if validation fails this
+        exception is raised to abort any further processing.
+    """
+    schema_instance = schema()
+    try:
+        schema_instance.deserialize(data)
+    except colander.Invalid as e:
+        raise HTTPBadRequest(e.msg)
+
+
 @add_metaclass(abc.ABCMeta)
 class ColanderSchemaValidationMixin(object):
     """Mix-in class to add colander-based validation to a resource.
@@ -35,10 +53,9 @@ class ColanderSchemaValidationMixin(object):
         raise NotImplemented()
 
     def validate(self, data, partial=False):
-        schema = self.schema()
         if partial:
             data = merge(self.to_dict(), data)
-        try:
-            schema.deserialize(data)
-        except colander.Invalid as e:
-            raise HTTPBadRequest(e.msg)
+        validate(data, self.schema)
+
+
+__all__ = ['ColanderSchemaValidationMixin', 'validate']

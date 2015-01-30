@@ -49,6 +49,8 @@ rest_toolkit.ext.colander
 .. autoclass:: ColanderSchemaValidationMixin
    :members:
 
+.. autofunction:: validate
+
 
 rest_toolkit.ext.jsonschema
 ---------------------------
@@ -57,6 +59,8 @@ rest_toolkit.ext.jsonschema
 
 .. autoclass:: JsonSchemaValidationMixin
    :members:
+
+.. autofunction:: validate
 
 
 rest_toolkit.ext.sql
