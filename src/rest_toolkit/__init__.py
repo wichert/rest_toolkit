@@ -5,11 +5,13 @@ from pyramid.interfaces import IExceptionResponse
 from pyramid.path import caller_package
 from pyramid.path import package_path
 import venusian
+from .abc import CollectionResource
 from .abc import DeletableResource
 from .abc import EditableResource
 from .abc import ViewableResource
 from .state import RestState
 from .views import unsupported_method_view
+from .views import default_create_view
 from .views import default_delete_view
 from .views import default_get_view
 from .views import default_options_view
@@ -134,6 +136,15 @@ class resource(BaseDecorator):
        This may be needed if you want to generate URLs to resources using
        request.route_url().
 
+    :param create_permission: Permission for the default create view.
+
+       If no create permission is specified all users, including anonymous
+       visitors, are allowed to issue POST requests for the resource.
+
+       This permission is only applied to the default POST view. If you specify
+       a custom POST view you need to specify the permission in the ``POST``
+       decorator call.
+
     :param read_permission: Permission for the default read view.
 
        If no read permission is specified all users, including anonymous
@@ -161,10 +172,12 @@ class resource(BaseDecorator):
        specify a custom DELETE view you need to specify the permission in the
        ``DELETE`` decorator call.
     """
-    def __init__(self, route_path, route_name=None, read_permission=None,
-            update_permission=None, delete_permission=None):
+    def __init__(self, route_path, route_name=None, create_permission=None,
+            read_permission=None, update_permission=None,
+            delete_permission=None):
         self.route_path = route_path
         self.route_name = route_name
+        self.create_permission = create_permission
         self.read_permission = read_permission
         self.update_permission = update_permission
         self.delete_permission = delete_permission
@@ -180,6 +193,7 @@ class resource(BaseDecorator):
                 ('DELETE', DeletableResource, default_delete_view, self.delete_permission),
                 ('GET', ViewableResource, default_get_view, self.read_permission),
                 ('PATCH', EditableResource, default_patch_view, self.update_permission),
+                ('POST', CollectionResource, default_create_view, self.create_permission),
                 ('PUT', EditableResource, default_put_view, self.update_permission)]:
             config.add_view(view,
                     route_name=state.route_name,

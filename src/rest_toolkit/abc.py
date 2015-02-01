@@ -104,4 +104,33 @@ class DeletableResource(object):
         raise NotImplemented()
 
 
-__all__ = ['DeletableResource', 'EditableResource', 'ViewableResource']
+@add_metaclass(abc.ABCMeta)
+class CollectionResource(object):
+    def validate_child(self, data):
+        """Validate data for a new child resource.
+
+        This method is called to validate data received from a client before it
+        is passed to :py:meth:`add_child`.
+
+        :param dict data: data to validate. The data is usually taken directly
+            from JSON send by a client.
+
+        :raises HTTPException: if all further request processing should be aborted
+            and the exception returned directly.
+        """
+        raise NotImplemented()
+
+    def add_child(self, data):
+        """Create a new child resource.
+
+        :param dict data: data for the new child. This data will already have been
+             validated by the :py:meth:`validate_child` method.
+        :return: response data for the view. This will generally be information
+            about the newly created child.
+        :rtype: dict
+        """
+        raise NotImplemented()
+
+
+
+__all__ = ['DeletableResource', 'EditableResource', 'ViewableResource', 'CollectionResource']
