@@ -3,7 +3,7 @@ import abc
 import jsonschema
 from pyramid.httpexceptions import HTTPBadRequest
 from ..compat import add_metaclass
-from ..utils import merge
+from ..utils import add_missing
 
 
 def validate(data, schema):
@@ -70,7 +70,7 @@ class JsonSchemaValidationMixin(object):
 
     def validate(self, data, partial=False):
         if partial:
-            data = merge(self.to_dict(), data)
+            data = self.complete_partial_data(data)
         validate(data, self.schema)
 
 

@@ -1,6 +1,7 @@
 from __future__ import absolute_import
 import abc
 from .compat import add_metaclass
+from .utils import merge
 
 
 @add_metaclass(abc.ABCMeta)
@@ -46,14 +47,8 @@ class EditableResource(object):
         :param bool partial: indicates if data contains the full resource state
             (as received in a PUT request), or only partial state (as received
             in a PATCH request). You can reconstruct the full resource state
-            from partial data by using :py:func:`merge
-            <rest_toolkit.utils.merge>` to combine data the current state as
-            returned by :py:meth:`to_dict` with `data`.
-
-            .. code-block:: python
-               :linenos:
-
-               full_state = merge(self.to_dict(), data) if partial else data
+            from partial data by using the :py:meth:`complete_partial_data`
+            method.
 
         :raises HTTPException: if all further request processing should be aborted
             and the exception returned directly.
@@ -83,6 +78,21 @@ class EditableResource(object):
             for a PATCH request).
         """
         raise NotImplemented()
+
+    def complete_partial_data(self, data):
+        """
+        Complete partial object data.
+
+        This method will be used by the validation extension to create a
+        complete data overview from partial information, as submitted in
+        a PATCH request, before trying to validate it.
+
+        :param dict data: The partial data to extend. The data is usually taken
+            directly from a PATCH request. This dictionary will not be modified.
+        :rtype: dict
+        :return: a new dictionary with the complete data for the resource.
+        """
+        return merge(self.to_dict(), data)
 
 
 @add_metaclass(abc.ABCMeta)
@@ -130,7 +140,6 @@ class CollectionResource(object):
         :rtype: dict
         """
         raise NotImplemented()
-
 
 
 __all__ = ['DeletableResource', 'EditableResource', 'ViewableResource', 'CollectionResource']

@@ -6,6 +6,9 @@ Changelog
 
 - Fix editing of SQL resource.
 
+- Update default views and validation extensions not to assume anything about
+  the ``to_dict()`` return format.
+
 
 0.6 - November 4, 2014
 ----------------------

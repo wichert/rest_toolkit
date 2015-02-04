@@ -1,9 +1,10 @@
 import pytest
 from pyramid.httpexceptions import HTTPBadRequest
+from rest_toolkit.abc import EditableResource
 from rest_toolkit.ext.jsonschema import JsonSchemaValidationMixin
 
 
-class DummyResource(JsonSchemaValidationMixin):
+class DummyResource(JsonSchemaValidationMixin, EditableResource):
     schema = {
            '$schema': 'http://json-schema.org/draft-04/schema',
            'type': 'object',
@@ -20,6 +21,12 @@ class DummyResource(JsonSchemaValidationMixin):
            'additionalProperties': False,
            'required': ['email', 'password'],
     }
+
+    def to_dict(self):
+        return {}
+
+    def update_from_dict(self, data, partial):
+        pass
 
 
 def test_valid_request():

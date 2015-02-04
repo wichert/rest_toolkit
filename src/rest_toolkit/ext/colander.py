@@ -3,7 +3,6 @@ import abc
 from pyramid.httpexceptions import HTTPBadRequest
 import colander
 from ..compat import add_metaclass
-from ..utils import merge
 
 
 def validate(data, schema):
@@ -54,7 +53,7 @@ class ColanderSchemaValidationMixin(object):
 
     def validate(self, data, partial=False):
         if partial:
-            data = merge(self.to_dict(), data)
+            data = self.complete_partial_data(data)
         validate(data, self.schema)
 
 

@@ -1,5 +1,6 @@
 import pytest
 from pyramid.httpexceptions import HTTPBadRequest
+from rest_toolkit.abc import EditableResource
 from rest_toolkit.ext.colander import ColanderSchemaValidationMixin
 import colander
 
@@ -9,8 +10,14 @@ class AccountSchema(colander.Schema):
     password = colander.SchemaNode(colander.String())
 
 
-class DummyResource(ColanderSchemaValidationMixin):
+class DummyResource(ColanderSchemaValidationMixin, EditableResource):
     schema = AccountSchema
+
+    def to_dict(self):
+        return {}
+
+    def update_from_dict(self, data, partial):
+        pass
 
 
 def test_valid_request():

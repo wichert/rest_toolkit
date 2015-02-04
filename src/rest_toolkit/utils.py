@@ -47,4 +47,11 @@ def merge(base, overlay):
     return new_base
 
 
+def add_missing(data, defaults):
+    for (key, value) in defaults.items():
+        if key not in data:
+            data[key] = value
+    return data
+
+
 __all__ = ['merge']
