@@ -47,11 +47,12 @@ def default_put_view(resource, request):
     return resource.to_dict()
 
 
-def default_create_view(resource, request):
+def default_post_view(resource, request):
     try:
         data = request.json_body
     except ValueError:
         request.reponse.status_int = 400
         return {'message': 'No JSON data provided.'}
     resource.validate_child(data)
+    request.response.status_int = 201
     return resource.add_child(data)

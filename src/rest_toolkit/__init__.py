@@ -11,11 +11,11 @@ from .abc import EditableResource
 from .abc import ViewableResource
 from .state import RestState
 from .views import unsupported_method_view
-from .views import default_create_view
 from .views import default_delete_view
 from .views import default_get_view
 from .views import default_options_view
 from .views import default_patch_view
+from .views import default_post_view
 from .views import default_put_view
 
 
@@ -193,7 +193,7 @@ class resource(BaseDecorator):
                 ('DELETE', DeletableResource, default_delete_view, self.delete_permission),
                 ('GET', ViewableResource, default_get_view, self.read_permission),
                 ('PATCH', EditableResource, default_patch_view, self.update_permission),
-                ('POST', CollectionResource, default_create_view, self.create_permission),
+                ('POST', CollectionResource, default_post_view, self.create_permission),
                 ('PUT', EditableResource, default_put_view, self.update_permission)]:
             config.add_view(view,
                     route_name=state.route_name,
