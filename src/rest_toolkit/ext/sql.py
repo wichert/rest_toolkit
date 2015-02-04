@@ -42,9 +42,9 @@ class SQLResource(object):
             data[column] = getattr(self.context, column)
         return data
 
-    def update_from_dict(self, data, partial=False):
-        for column in _column_keys(columns):
-            if partial:
+    def update_from_dict(self, data, replace=False):
+        for column in _column_keys(self.context_query):
+            if not replace:
                 setattr(self.context, column, data.get(column))
             else:
                 setattr(self.context, column, data[column])

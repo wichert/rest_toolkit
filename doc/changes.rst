@@ -4,7 +4,7 @@ Changelog
 0.7 - Unreleased
 ----------------------
 
-- ...
+- Fix editing of SQL resource.
 
 
 0.6 - November 4, 2014
