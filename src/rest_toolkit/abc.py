@@ -60,9 +60,7 @@ class EditableResource(object):
         """Generate a (JSON-compatible) dictionary with resource data.
 
         This method is used by the default GET, PATCH and PUT views to generate
-        the data for the response. It is also used by by the PATCH view
-        to complete the (partial) data provided by a client before validation
-        is done.
+        the data for the response.
         """
         raise NotImplemented()
 
