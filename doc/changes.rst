@@ -14,6 +14,9 @@ Changelog
   set the system error exception handler will add the exception traceback to
   the response under a new ``traceback`` key.
 
+- Add basic support for collection resources. These can handle ``POST``
+  requests to create child objects.
+
 
 0.6 - November 4, 2014
 ----------------------
