@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.7 - Unreleased
-----------------------
+0.7 - March 12, 2015
+--------------------
 
 - Fix editing of SQL resource.
 
