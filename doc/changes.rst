@@ -9,6 +9,11 @@ Changelog
 - Update default views and validation extensions not to assume anything about
   the ``to_dict()`` return format.
 
+- If the ``rest_toolkit.debug`` is set, or the ``REST_TOOLKIT_DEBUG``
+  environment variable is set to ``true``, or the pyramid's debug-all flag is
+  set the system error exception handler will add the exception traceback to
+  the response under a new ``traceback`` key.
+
 
 0.6 - November 4, 2014
 ----------------------

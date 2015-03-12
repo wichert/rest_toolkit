@@ -15,6 +15,17 @@ def test_resource_constructor_exception():
     assert r.content_type == 'application/json'
     assert set(r.json) == {'message'}
     assert r.json['message'] == 'BOOM!'
+    assert 'traceback' not in r.json
+
+
+def test_add_traceback_in_debug_mode():
+    config = Configurator()
+    config.include('rest_toolkit')
+    config.scan('resource_error')
+    config.registry.settings['rest_toolkit.debug'] = True
+    app = make_app(config)
+    r = app.get('/keyerror', status=500)
+    assert 'traceback' in r.json
 
 
 def test_resource_constructor_http_exception():

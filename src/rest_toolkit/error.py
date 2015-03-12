@@ -1,3 +1,4 @@
+import traceback
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.security import unauthenticated_userid
 
@@ -5,9 +6,13 @@ from pyramid.security import unauthenticated_userid
 def generic(context, request):
     request.response.status_int = 500
     try:
-        return {'message': context.args[0]}
+        response = {'message': context.args[0]}
     except IndexError:
-        return {'message': 'Unknown error'}
+        response = {'message': 'Unknown error'}
+    if request.registry.settings.get('rest_toolkit.debug'):
+        response['traceback'] = ''.join(
+                traceback.format_exception(*request.exc_info))
+    return response
 
 
 def http_error(context, request):

@@ -1,9 +1,11 @@
+import os
 from wsgiref.simple_server import make_server
 from webob.exc import WSGIHTTPException
 from pyramid.config import Configurator
 from pyramid.interfaces import IExceptionResponse
 from pyramid.path import caller_package
 from pyramid.path import package_path
+from pyramid.settings import asbool
 import venusian
 from .abc import CollectionResource
 from .abc import DeletableResource
@@ -228,6 +230,13 @@ def includeme(config):
        config = Configurator()
        config.include('rest_toolkit')
     """
+    settings = config.registry.settings
+    settings['rest_toolkit.debug'] = \
+            settings.get('debug_all') or \
+            settings.get('pyramid.debug_all') or \
+            settings.get('rest_toolkit.debug') or \
+            asbool(os.environ.get('PYRAMID_DEBUG_ALL')) or \
+            asbool(os.environ.get('REST_TOOLKIT_DEBUG'))
     config.add_view('rest_toolkit.error.generic', context=Exception, renderer='json')
     config.add_view('rest_toolkit.error.http_error', context=IExceptionResponse, renderer='json')
     config.add_view('rest_toolkit.error.http_error', context=WSGIHTTPException, renderer='json')
