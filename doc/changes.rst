@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.8 - Unreleased
+--------------------
+
+- Do not require any permissions for the generic error view. This fixes any
+  errors being converted to forbidden errors on sites with a default
+  permission.
+
+
 0.7 - March 12, 2015
 --------------------
 

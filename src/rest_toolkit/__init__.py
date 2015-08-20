@@ -5,6 +5,7 @@ from pyramid.config import Configurator
 from pyramid.interfaces import IExceptionResponse
 from pyramid.path import caller_package
 from pyramid.path import package_path
+from pyramid.security import NO_PERMISSION_REQUIRED
 from pyramid.settings import asbool
 import venusian
 from .abc import CollectionResource
@@ -237,7 +238,9 @@ def includeme(config):
             settings.get('rest_toolkit.debug') or \
             asbool(os.environ.get('PYRAMID_DEBUG_ALL')) or \
             asbool(os.environ.get('REST_TOOLKIT_DEBUG'))
-    config.add_view('rest_toolkit.error.generic', context=Exception, renderer='json')
+    config.add_view('rest_toolkit.error.generic',
+            context=Exception, renderer='json',
+            permission=NO_PERMISSION_REQUIRED)
     config.add_view('rest_toolkit.error.http_error', context=IExceptionResponse, renderer='json')
     config.add_view('rest_toolkit.error.http_error', context=WSGIHTTPException, renderer='json')
     config.add_notfound_view('rest_toolkit.error.notfound', renderer='json')
