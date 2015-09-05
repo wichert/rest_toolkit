@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.8 - Unreleased
---------------------
+0.8 - September 5, 2015
+-----------------------
 
 - Correctly handle OPTIONS requests for controllers.
 
