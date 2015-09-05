@@ -5,7 +5,7 @@ import sys
 version = '0.7'
 
 install_requires = [
-        'pyramid',
+        'pyramid >=1.6a2',
         ]
 
 tests_require = [
