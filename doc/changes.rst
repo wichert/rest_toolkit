@@ -4,6 +4,8 @@ Changelog
 0.8 - Unreleased
 --------------------
 
+- Correctly handle OPTIONS requests for controllers.
+
 - Do not require any permissions for the generic error view. This fixes any
   errors being converted to forbidden errors on sites with a default
   permission.

@@ -105,6 +105,11 @@ class ControllerDecorator(BaseDecorator):
         self.state.add_controller(self.name, view, self.request_method)
         if not self._must_register_route(config, route_name):
             config.add_route(route_name, route_path, factory=self.state.resource_class)
+
+            def opt(resource, request):
+                return default_options_view(resource, request, [self.request_method])
+
+            config.add_view(opt, route_name=route_name, request_method='OPTIONS')
             config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
         config.add_view(view,
                 route_name=route_name,
