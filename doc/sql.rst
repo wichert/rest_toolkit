@@ -117,7 +117,6 @@ can be used as part of the
 :py:class:`EditableResource <rest_toolkit.abc.EditableResource>` interface.
 You must supply an implementation for `validate` yourself.
 
-
 .. code-block:: python
    :linenos:
 
@@ -130,3 +129,20 @@ You must supply an implementation for `validate` yourself.
 
        def validate(self, data, partial):
            # Validate data here
+
+The default update logic will not update and primary keys. If you want to allow
+key changes you can set the ``allow_primary_key_change`` class attribute.
+
+
+.. code-block:: python
+   :linenos:
+
+   from rest_toolkit.abc import EditableResource
+   from rest_toolkit.ext.sql import SQLResource
+
+   @resource('/users/{id}')
+   class UserResource(SQLResource, EditableResource):
+       context_query = Query(User).filter(User.id == bindparam('id'))
+
+       allow_primary_key_change = True
+

@@ -10,13 +10,15 @@ except ImportError:  # pragma: noqa
 
 
 def _column_keys(query):
-    return [column.key for column in query._primary_entity.entity_zero.columns]
+    return [(column.primary_key, column.key) for column in query._primary_entity.entity_zero.columns]
 
 
 @add_metaclass(abc.ABCMeta)
 class SQLResource(object):
     """Base class for resources based on SQLAlchemy ORM models.
     """
+
+    allow_primary_key_change = False
 
     @abc.abstractproperty
     def context_query(self):
@@ -38,12 +40,14 @@ class SQLResource(object):
 
     def to_dict(self):
         data = {}
-        for column in _column_keys(self.context_query):
+        for (_, column) in _column_keys(self.context_query):
             data[column] = getattr(self.context, column)
         return data
 
     def update_from_dict(self, data, replace=False):
-        for column in _column_keys(self.context_query):
+        for (key, column) in _column_keys(self.context_query):
+            if key and not self.allow_primary_key_change:
+                continue
             if not replace:
                 setattr(self.context, column, data.get(column))
             else:

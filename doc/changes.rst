@@ -4,6 +4,10 @@ Changelog
 0.9 - Unreleased
 -----------------------
 
+- Default to not allowing primary key changes for SQLResource objects. This can
+  be toggled with a new ``allow_primary_key_change`` variable on the resource
+  class.
+
 - Correctly set ``Access-Control-Allow-Methods`` header for resources using
   default views.
 

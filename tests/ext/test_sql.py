@@ -5,10 +5,16 @@ from pyramid.testing import DummyRequest
 from pyramid_sqlalchemy import Session
 from resource_sql import BalloonModel
 from resource_sql import BalloonResource
+from rest_toolkit.ext.sql import _column_keys
 
 
 def make_app(config):
     return TestApp(config.make_wsgi_app())
+
+
+def test_column_keys():
+    keys = _column_keys(BalloonResourc.context_query)
+    assert set(keys) == [(True, 'id'), (False, 'figure')]
 
 
 @pytest.mark.usefixtures('sql_session')
