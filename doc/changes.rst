@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.9 - Unreleased
+-----------------------
+
+- Correctly set ``Access-Control-Allow-Methods`` header for resources using
+  default views.
+
+
 0.8 - September 5, 2015
 -----------------------
 

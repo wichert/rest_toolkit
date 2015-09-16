@@ -203,12 +203,14 @@ class resource(BaseDecorator):
                 ('PATCH', EditableResource, default_patch_view, self.update_permission),
                 ('POST', CollectionResource, default_post_view, self.create_permission),
                 ('PUT', EditableResource, default_put_view, self.update_permission)]:
-            config.add_view(view,
-                    route_name=state.route_name,
-                    context=base_class,
-                    renderer='json',
-                    request_method=request_method,
-                    permission=permission)
+            if issubclass(cls, base_class):
+                state.add_method(request_method, view)
+                config.add_view(view,
+                        route_name=state.route_name,
+                        context=base_class,
+                        renderer='json',
+                        request_method=request_method,
+                        permission=permission)
 
     def __call__(self, cls):
         state = RestState.add_to_resource(cls, self.route_path, self.route_name)
