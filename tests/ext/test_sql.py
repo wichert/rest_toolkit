@@ -13,8 +13,8 @@ def make_app(config):
 
 
 def test_column_keys():
-    keys = _column_keys(BalloonResourc.context_query)
-    assert set(keys) == [(True, 'id'), (False, 'figure')]
+    keys = _column_keys(BalloonResource.context_query)
+    assert set(keys) == {(True, 'id'), (False, 'figure')}
 
 
 @pytest.mark.usefixtures('sql_session')
