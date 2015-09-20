@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.9 - Unreleased
------------------------
+0.9 - September 20, 2015
+------------------------
 
 - Default to not allowing primary key changes for SQLResource objects. This can
   be toggled with a new ``allow_primary_key_change`` variable on the resource
