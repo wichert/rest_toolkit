@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.10 -
+------------------------
+
+- Do not require any permssions for OPTIONS requests. This can badly break
+  authentication, since OPTIONS will be called to check if auth-related
+  headers may be send.
+
+
 0.9 - September 20, 2015
 ------------------------
 
