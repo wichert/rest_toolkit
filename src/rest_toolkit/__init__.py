@@ -246,9 +246,10 @@ def includeme(config):
             settings.get('rest_toolkit.debug') or \
             asbool(os.environ.get('PYRAMID_DEBUG_ALL')) or \
             asbool(os.environ.get('REST_TOOLKIT_DEBUG'))
-    config.add_view('rest_toolkit.error.generic',
-            context=Exception, renderer='json',
-            permission=NO_PERMISSION_REQUIRED)
+    if not settings['rest_toolkit.debug']:
+        config.add_view('rest_toolkit.error.generic',
+                context=Exception, renderer='json',
+                permission=NO_PERMISSION_REQUIRED)
     config.add_view('rest_toolkit.error.http_error', context=IExceptionResponse, renderer='json')
     config.add_view('rest_toolkit.error.http_error', context=WSGIHTTPException, renderer='json')
     config.add_notfound_view('rest_toolkit.error.notfound', renderer='json')

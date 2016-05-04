@@ -8,6 +8,8 @@ Changelog
   authentication, since OPTIONS will be called to check if auth-related
   headers may be send.
 
+- Do not register catch-all exception view if debugging is enabled.
+
 
 0.9 - September 20, 2015
 ------------------------
