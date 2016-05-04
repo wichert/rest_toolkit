@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.10 -
-------------------------
+0.10 - May 4, 2016
+------------------
 
 - Do not require any permssions for OPTIONS requests. This can badly break
   authentication, since OPTIONS will be called to check if auth-related
