@@ -15,4 +15,5 @@
 
 /pyvenv.cfg
 
-.idea
+/.idea
+/.cache
