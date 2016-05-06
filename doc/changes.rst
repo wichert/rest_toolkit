@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.11 - May 6, 2016
+------------------
+
+- Allow ``update_from_dict`` to return a custom response, which will be used
+  by the default PATCH and PUT views.
+
+
 0.10 - May 4, 2016
 ------------------
 
