@@ -1,4 +1,5 @@
 import os
+import functools
 from wsgiref.simple_server import make_server
 from webob.exc import WSGIHTTPException
 from pyramid.config import Configurator
@@ -220,10 +221,55 @@ class resource(BaseDecorator):
                                       (ViewDecorator, object),
                                       {'request_method': method,
                                        'state': state}))
+        cls.resource = functools.partial(SubresourceDecorator, self.route_path)
         cls.controller = type('ControllerDecorator',
                               (ControllerDecorator, object),
                               {'state': state})
         return super(resource, self).__call__(cls, depth=2)
+
+
+class SubresourceDecorator(resource):
+    """
+    Creates a subresource of an already existing resource.
+
+    Does only prefix the subresource with the parent resource's rout_path.
+
+    You still have to subclass the subresource from the parent.
+
+    .. code-block:: python
+       :linenos:
+
+       from rest_toolkit import resource
+
+       PHOTOS = {1: ['...']}
+
+       @resource('/users/{id}')
+       class User(object):
+           def __init__(self, request):
+               self.user_id = int(request.matchdict['id'])
+
+       @User.resource('/photos')
+       class UserPhotos(User):
+           pass
+
+       @UserPhotos.GET()
+       def get_user_photos(resource, request):
+           return PHOTOS.get(resource.user_id, [])
+    """
+
+    def __init__(self,
+                 prefix,
+                 route_path,
+                 **kwargs):
+        if not prefix:
+            raise ValueError('"prefix" is required')
+
+        if not route_path:
+            raise ValueError('"route_path" is required')
+
+        route_path = prefix + route_path
+
+        resource.__init__(self, route_path, **kwargs)
 
 
 def includeme(config):
