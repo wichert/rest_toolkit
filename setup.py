@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 import sys
 
-version = '0.9'
+version = '0.11'
 
 install_requires = [
         'pyramid >=1.6a2',
@@ -47,8 +47,8 @@ setup(name='rest_toolkit',
           'Programming Language :: Python :: 2',
           'Programming Language :: Python :: 2.7',
           'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.3',
           'Programming Language :: Python :: 3.4',
+          'Programming Language :: Python :: 3.5',
           'Topic :: Internet :: WWW/HTTP :: WSGI',
           'Topic :: Software Development :: Libraries :: Python Modules',
       ],

@@ -34,8 +34,8 @@ def default_patch_view(resource, request):
         request.response.status_int = 400
         return {'message': 'No JSON data provided.'}
     resource.validate(data, partial=True)
-    resource.update_from_dict(data, replace=False)
-    return resource.to_dict()
+    r = resource.update_from_dict(data, replace=False)
+    return r if r is not None else resource.to_dict()
 
 
 def default_put_view(resource, request):
@@ -45,8 +45,8 @@ def default_put_view(resource, request):
         request.response.status_int = 400
         return {'message': 'No JSON data provided.'}
     resource.validate(data, partial=False)
-    resource.update_from_dict(data, replace=True)
-    return resource.to_dict()
+    r = resource.update_from_dict(data, replace=True)
+    return r if r is not None else resource.to_dict()
 
 
 def default_post_view(resource, request):

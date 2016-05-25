@@ -1,6 +1,23 @@
 Changelog
 =========
 
+0.11 - May 6, 2016
+------------------
+
+- Allow ``update_from_dict`` to return a custom response, which will be used
+  by the default PATCH and PUT views.
+
+
+0.10 - May 4, 2016
+------------------
+
+- Do not require any permssions for OPTIONS requests. This can badly break
+  authentication, since OPTIONS will be called to check if auth-related
+  headers may be send.
+
+- Do not register catch-all exception view if debugging is enabled.
+
+
 0.9 - September 20, 2015
 ------------------------
 

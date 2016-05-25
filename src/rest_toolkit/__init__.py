@@ -109,7 +109,8 @@ class ControllerDecorator(BaseDecorator):
             def opt(resource, request):
                 return default_options_view(resource, request, [self.request_method])
 
-            config.add_view(opt, route_name=route_name, request_method='OPTIONS')
+            config.add_view(opt, route_name=route_name, request_method='OPTIONS',
+                    permission=NO_PERMISSION_REQUIRED)
             config.add_view(unsupported_method_view, route_name=route_name, renderer='json')
         config.add_view(view,
                 route_name=route_name,
@@ -195,7 +196,7 @@ class resource(BaseDecorator):
         config = scanner.config.with_package(self.module)
         config.add_route(state.route_name, state.route_path, factory=cls)
         config.add_view(default_options_view, route_name=state.route_name,
-                request_method='OPTIONS')
+                request_method='OPTIONS', permission=NO_PERMISSION_REQUIRED)
         config.add_view(unsupported_method_view, route_name=state.route_name, renderer='json')
         for (request_method, base_class, view, permission) in [
                 ('DELETE', DeletableResource, default_delete_view, self.delete_permission),
@@ -245,9 +246,10 @@ def includeme(config):
             settings.get('rest_toolkit.debug') or \
             asbool(os.environ.get('PYRAMID_DEBUG_ALL')) or \
             asbool(os.environ.get('REST_TOOLKIT_DEBUG'))
-    config.add_view('rest_toolkit.error.generic',
-            context=Exception, renderer='json',
-            permission=NO_PERMISSION_REQUIRED)
+    if not settings['rest_toolkit.debug']:
+        config.add_view('rest_toolkit.error.generic',
+                context=Exception, renderer='json',
+                permission=NO_PERMISSION_REQUIRED)
     config.add_view('rest_toolkit.error.http_error', context=IExceptionResponse, renderer='json')
     config.add_view('rest_toolkit.error.http_error', context=WSGIHTTPException, renderer='json')
     config.add_notfound_view('rest_toolkit.error.notfound', renderer='json')
