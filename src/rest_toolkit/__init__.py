@@ -183,13 +183,15 @@ class resource(BaseDecorator):
     """
     def __init__(self, route_path, route_name=None, create_permission=None,
             read_permission=None, update_permission=None,
-            delete_permission=None):
+            delete_permission=None,
+            **view_arguments):
         self.route_path = route_path
         self.route_name = route_name
         self.create_permission = create_permission
         self.read_permission = read_permission
         self.update_permission = update_permission
         self.delete_permission = delete_permission
+        self.view_arguments = view_arguments
 
     def callback(self, scanner, name, cls):
         state = RestState.from_resource(cls)
@@ -211,7 +213,8 @@ class resource(BaseDecorator):
                         context=base_class,
                         renderer='json',
                         request_method=request_method,
-                        permission=permission)
+                        permission=permission,
+                        **self.view_arguments)
 
     def __call__(self, cls):
         state = RestState.add_to_resource(cls, self.route_path, self.route_name)

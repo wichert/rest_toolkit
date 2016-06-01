@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 import sys
 
-version = '0.11'
+version = '0.12'
 
 install_requires = [
         'pyramid >=1.6a2',

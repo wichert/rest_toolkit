@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.12 - June 1, 2016 
+-------------------
+
+- Pass extra resource and controller arguments to the underlying ``add_view()``
+  calls. This allows using predicates for views.
+
+
 0.11 - May 6, 2016
 ------------------
 
