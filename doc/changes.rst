@@ -8,6 +8,13 @@ Changelog
 - Preserve response exceptions raised by resource constructors or views if they
   already have a JSON content type.
 
+- Modify default JSON validation error response format: use the field with the
+  validation error as key in the response data.
+
+- Use a custom ``rest_toolkit.ext.jsonschema.JSONValidationError`` exception for
+  JSON validation errors. This allows for easy customisation of validation error
+  response by defining a view for ``JSONValidationError``.
+
 
 0.12 - June 1, 2016 
 -------------------

@@ -6,6 +6,10 @@ from ..compat import add_metaclass
 from ..utils import add_missing
 
 
+class JSONValidationError(HTTPBadRequest):
+    """HTTP response for JSON validation errors.
+    """
+
 def validate(data, schema):
     """Validate data against a JSON schema.
 
@@ -21,7 +25,12 @@ def validate(data, schema):
         jsonschema.validate(data, schema,
             format_checker=jsonschema.draft4_format_checker)
     except jsonschema.ValidationError as e:
-        raise HTTPBadRequest(e.message)
+        error = {
+            '.'.join(e.path): e.message
+        }
+        response = JSONValidationError(json=error)
+        response.validation_error = e
+        raise response
 
 
 @add_metaclass(abc.ABCMeta)
