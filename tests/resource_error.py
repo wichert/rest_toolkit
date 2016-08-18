@@ -2,6 +2,7 @@ from rest_toolkit import resource
 from pyramid.httpexceptions import HTTPFound
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.httpexceptions import HTTPPaymentRequired
+from pyramid.httpexceptions import HTTPBadRequest
 
 
 @resource('/keyerror')
@@ -26,3 +27,9 @@ class HTTPNotFoundResource(object):
 class HTTPFoundResource(object):
     def __init__(self, request):
         raise HTTPFound('http://www.wiggy.net')
+
+
+@resource('/custom-json-exception')
+class CustomException(object):
+    def __init__(self, request):
+        raise HTTPBadRequest(json={'foo': 'bar'})

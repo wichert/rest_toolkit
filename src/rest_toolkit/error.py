@@ -1,4 +1,5 @@
 import traceback
+import webob
 from pyramid.httpexceptions import HTTPNotFound
 from pyramid.security import unauthenticated_userid
 
@@ -16,6 +17,8 @@ def generic(context, request):
 
 
 def http_error(context, request):
+    if isinstance(context, webob.Response) and context.content_type == 'application/json':
+        return context
     request.response.status = context.status
     for (header, value) in context.headers.items():
         if header in {'Content-Type', 'Content-Length'}:

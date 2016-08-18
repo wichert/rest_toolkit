@@ -49,6 +49,17 @@ def test_resource_constructor_raises_notfound():
     assert set(r.json) == {'message'}
 
 
+def test_preserve_custom_json_response():
+    config = Configurator()
+    config.include('rest_toolkit')
+    config.scan('resource_error')
+    app = make_app(config)
+    r = app.get('/custom-json-exception', status=400)
+    assert r.content_type == 'application/json'
+    assert r.json == {'foo': 'bar'}
+
+
+
 def test_notfound_response():
     config = Configurator()
     config.include('rest_toolkit')
