@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-0.13 -
-------------------
+0.13 - August 18, 2016
+----------------------
 
 - Preserve response exceptions raised by resource constructors or views if they
   already have a JSON content type.
