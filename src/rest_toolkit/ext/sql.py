@@ -31,8 +31,12 @@ class SQLResource(object):
         assert _session_factory is not None, \
                 "config.set_sqlalchemy_session_factory must be called."
         self.request = request
+        if isinstance(_session_factory, str):
+            current_session_factory = eval(_session_factory)
+        else:
+            current_session_factory = _session_factory()
         self.context = self.context_query\
-                .with_session(_session_factory())\
+                .with_session(current_session_factory)\
                 .params(request.matchdict)\
                 .first()
         if self.context is None:
