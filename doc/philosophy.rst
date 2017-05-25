@@ -1,6 +1,6 @@
 .. _philosophy-chapter:
 
-Philosphy
+Philosophy
 =========
 
 *rest_toolkit* tries to follow the standard
