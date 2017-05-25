@@ -1,8 +1,10 @@
 Changelog
 =========
 
-0.14 -
-----------------------
+0.14 - May 25, 2017
+-------------------
+
+- Fix a Pyramid depcreation warning for ``unauthenticated_userid``.
 
 
 0.13 - August 18, 2016

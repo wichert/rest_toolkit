@@ -1,7 +1,6 @@
 import traceback
 import webob
 from pyramid.httpexceptions import HTTPNotFound
-from pyramid.security import unauthenticated_userid
 
 
 def generic(context, request):
@@ -42,7 +41,7 @@ def notfound(context, request):
 
 
 def forbidden(request):
-    if unauthenticated_userid(request):
+    if request.unauthenticated_userid:
         request.response.status_int = 403
         return {'message': 'You are not allowed to perform this action.'}
     else:
