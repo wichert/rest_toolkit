@@ -11,7 +11,6 @@ install_requires = [
 tests_require = [
         'pytest',
         'WebTest',
-        'mock',
         'colander',
         'jsonschema',
         'pyramid_sqlalchemy >=1.2',
