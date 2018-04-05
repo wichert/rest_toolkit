@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.15 - April 5, 2018
+--------------------
+
+- Do not set content-type header on 204 responses.
+
+
 0.14 - May 25, 2017
 -------------------
 
