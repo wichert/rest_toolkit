@@ -26,7 +26,7 @@ def validate(data, schema):
             format_checker=jsonschema.draft4_format_checker)
     except jsonschema.ValidationError as e:
         error = {
-            '.'.join(e.path): e.message
+            '.'.join(str(p) for p in e.path): e.message
         }
         response = JSONValidationError(json=error)
         response.validation_error = e

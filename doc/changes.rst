@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.16 - April 14, 2018
+---------------------
+
+- Fix error in handling of JSON validation errors in arrays.
+
+
 0.15 - April 5, 2018
 --------------------
 

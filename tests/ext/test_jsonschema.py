@@ -17,6 +17,13 @@ class DummyResource(JsonSchemaValidationMixin, EditableResource):
                     'type': 'string',
                     'minLength': 1,
                },
+               'groups': {
+                   'type': 'array',
+                   'items': {
+                       'type': 'string',
+                       'enum': ['admin', 'user'],
+                    },
+                },
            },
            'additionalProperties': False,
            'required': ['email', 'password'],
@@ -38,6 +45,16 @@ def test_validation_error():
     resource = DummyResource()
     with pytest.raises(HTTPBadRequest):
         resource.validate({'email': 'john@example.com'}, partial=False)
+
+
+def test_array_validation_error():
+    resource = DummyResource()
+    with pytest.raises(HTTPBadRequest):
+        resource.validate({
+                'email': 'john@example.com',
+                'password': 'Jane',
+                'groups': ['admin', 'invalid'],
+            }, partial=False)
 
 
 def test_partial_data():
