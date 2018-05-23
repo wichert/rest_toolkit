@@ -1,14 +1,15 @@
 from __future__ import absolute_import
 import abc
 import jsonschema
+from jsonschema.validators import validator_for
 from pyramid.httpexceptions import HTTPBadRequest
 from ..compat import add_metaclass
-from ..utils import add_missing
 
 
 class JSONValidationError(HTTPBadRequest):
     """HTTP response for JSON validation errors.
     """
+
 
 def validate(data, schema):
     """Validate data against a JSON schema.
@@ -21,15 +22,12 @@ def validate(data, schema):
     :raises pyramid.httpexceptions.HTTPBadRequest: if validation fails this
         exception is raised to abort any further processing.
     """
-    try:
-        jsonschema.validate(data, schema,
-            format_checker=jsonschema.draft4_format_checker)
-    except jsonschema.ValidationError as e:
-        error = {
-            '.'.join(str(p) for p in e.path): e.message
-        }
-        response = JSONValidationError(json=error)
-        response.validation_error = e
+    validator = validator_for(schema)
+    errors = {}
+    for e in validator(schema).iter_errors(data):
+        errors['.'.join(str(p) for p in e.path)] = e.message
+    if errors:
+        response = JSONValidationError(json=errors)
         raise response
 
 

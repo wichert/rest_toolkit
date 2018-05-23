@@ -6,7 +6,6 @@ from rest_toolkit.ext.jsonschema import JsonSchemaValidationMixin
 
 class DummyResource(JsonSchemaValidationMixin, EditableResource):
     schema = {
-           '$schema': 'http://json-schema.org/draft-04/schema',
            'type': 'object',
            'properties': {
                'email': {
@@ -55,6 +54,15 @@ def test_array_validation_error():
                 'password': 'Jane',
                 'groups': ['admin', 'invalid'],
             }, partial=False)
+
+
+def test_multiple_errors():
+    resource = DummyResource()
+    with pytest.raises(HTTPBadRequest) as exc_info:
+        import pdb ; pdb.set_trace()
+        resource.validate({})
+    assert 'email' in exc_info.value.json
+    assert 'password' in exc_info.value.json
 
 
 def test_partial_data():
