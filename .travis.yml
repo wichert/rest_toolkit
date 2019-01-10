@@ -1,9 +1,8 @@
 language: python
 python:
+  - "2.7"
   - "3.6"
-  - "3.7"
-  - pypy
 install:
   - pip install pipenv
   - pipenv sync --dev
-script: pipenv run py.test
+script: py.test
