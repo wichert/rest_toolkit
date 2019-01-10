@@ -14,6 +14,3 @@ colander = "*"
 jsonschema = "*"
 pyramid-sqlalchemy = "*"
 pyramid-tm = "*"
-
-[requires]
-python_version = "3.6"
