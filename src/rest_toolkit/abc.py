@@ -22,7 +22,7 @@ class ViewableResource(object):
         to complete the (partial) data provided by a client before validation
         is done (see :py:class:`EditableResource` for details).
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
 
 @add_metaclass(abc.ABCMeta)
@@ -53,7 +53,7 @@ class EditableResource(object):
         :raises HTTPException: if all further request processing should be aborted
             and the exception returned directly.
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
     @abc.abstractmethod
     def to_dict(self):
@@ -62,7 +62,7 @@ class EditableResource(object):
         This method is used by the default GET, PATCH and PUT views to generate
         the data for the response.
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
     @abc.abstractmethod
     def update_from_dict(self, data, replace):
@@ -75,7 +75,7 @@ class EditableResource(object):
             or if only provided keys should be updated (as should be done
             for a PATCH request).
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def complete_partial_data(self, data):
         """
@@ -109,7 +109,7 @@ class DeletableResource(object):
         This method must delete the resource, or mark it as deleted, so that it
         is no longer accessible through the REST API.
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
 
 @add_metaclass(abc.ABCMeta)
@@ -126,7 +126,7 @@ class CollectionResource(object):
         :raises HTTPException: if all further request processing should be aborted
             and the exception returned directly.
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def add_child(self, data):
         """Create a new child resource.
@@ -137,7 +137,7 @@ class CollectionResource(object):
             about the newly created child.
         :rtype: dict
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
 
 __all__ = ['DeletableResource', 'EditableResource', 'ViewableResource', 'CollectionResource']

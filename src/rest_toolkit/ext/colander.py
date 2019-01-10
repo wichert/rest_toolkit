@@ -49,7 +49,7 @@ class ColanderSchemaValidationMixin(object):
     def schema(self):
         """Colander schema class.
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def validate(self, data, partial=False):
         if partial:

@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.17 - January 10, 2019
+-----------------------
+
+- Fix usage of NotImplemented
+
+
 0.16 - April 14, 2018
 ---------------------
 

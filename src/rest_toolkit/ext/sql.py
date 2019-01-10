@@ -24,7 +24,7 @@ class SQLResource(object):
     def context_query(self):
         """A SQLAlchemy query which is used to find a SQLAlchemy object.
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def __init__(self, request):
         global _session_factory

@@ -75,7 +75,7 @@ class JsonSchemaValidationMixin(object):
         This attribute must contain a valid JSON schema. This will be used by
         :py:meth:`validate` to validate submitted data.
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def validate(self, data, partial=False):
         if partial:
@@ -125,7 +125,7 @@ class JsonSchemaChildValidationMixin(object):
         This attribute must contain a valid JSON schema. This will be used by
         :py:meth:`validate` to validate submitted data.
         """
-        raise NotImplemented()
+        raise NotImplementedError()
 
     def validate_child(self, data):
         validate(data, self.child_schema)
