@@ -151,11 +151,11 @@
         },
         "colander": {
             "hashes": [
-                "sha256:2358303aa04cca0e1865323ce253e65d25f6307d12bade89dbe1aa4e60197d4b",
-                "sha256:d86b9e1fb42c80c68b26040e32dad584aa168abf3175133b36f5dace392350a1"
+                "sha256:d758163a22d22c39b9eaae049749a5cd503f341231a02ed95af480b1145e81f2",
+                "sha256:f79795d04bd06958bd03ce83d25aeadfe5a04e2877cf0a9f1f4da2d84a9530c3"
             ],
             "index": "pypi",
-            "version": "==1.5.1"
+            "version": "==1.7.0"
         },
         "flake8": {
             "hashes": [
@@ -328,7 +328,6 @@
                 "sha256:b3b6450106b65bfcbefce5940fff23240305db86683cbf4e524af199b514ba61",
                 "sha256:edbb927a6f7c43d4fde35740786a30c180c1623d70a7ad5fd1d1f4adacc54468"
             ],
-            "index": "pypi",
             "version": "==1.4.0"
         },
         "webob": {
