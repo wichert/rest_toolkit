@@ -54,7 +54,7 @@ def main():
     settings = {
       # The pyramid_persona plugin needs a master secret to use for
       # signing login cookies, and the expected hostname of your website
-      # to prevent fradulent login attempts.
+      # to prevent fraudulent login attempts.
       "persona.secret": "TED KOPPEL IS A ROBOT",
       "persona.audiences": "localhost:8080",
 
